@@ -1,4 +1,6 @@
-:root {}
+:root {
+  --body-background: #e6d8d8;
+}
 
 * {
   box-sizing: border-box;
@@ -15,4 +17,56 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* User form */
+
+.user-form-container {
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-left-side,
+.form-right-side {
+  display: flex;
+  justify-content: center;
+}
+
+.form-right-side {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-right-side h2 {
+  font-size: 2.5rem;
+}
+
+.form-right-side input,
+.form-right-side button {
+  border-radius: 5px;
+  height: 40px;
+  width: 350px;
+}
+
+.form-right-side input {
+  border: 1px solid rgb(161, 158, 158);
+  padding-left: 10px;
+  font-size: 1rem;
+}
+
+.form-right-side input::placeholder {
+  font-size: 1rem;
+}
+
+.form-right-side button {
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.form-redirect-msg {
+  font-size: 1rem;
+  font-weight: 600;
 }
