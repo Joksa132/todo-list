@@ -2,6 +2,7 @@
   --body-background: #e6d8d8;
   --button-background: #FFD43B;
   --sidebar-background: #F4F4F4;
+  --mouseover-background: #EBEBEB;
 }
 
 * {
@@ -22,3 +23,82 @@ a {
 }
 
 /* Sidebar */
+
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  height: 94vh;
+  margin: 20px;
+  padding: 10px;
+  background-color: var(--sidebar-background);
+  border-radius: 10px;
+}
+
+.sidebar-task-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  justify-content: center;
+}
+
+.search-bar input {
+  border: 1px solid rgb(186, 183, 183);
+  width: 100%;
+  border-radius: 5px;
+  height: 30px;
+  background-color: var(--sidebar-background);
+  padding-left: 10px;
+  font-size: 1rem;
+}
+
+.search-bar input::placeholder {
+  font-size: 1rem;
+}
+
+.tasks-container,
+.lists-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tasks-container h4,
+.lists-container h4 {
+  margin-bottom: 5px;
+}
+
+.tasks-container span {
+  cursor: pointer;
+  padding: 5px 0 5px 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tasks-container span:hover,
+.sidebar-user-section:hover {
+  background-color: var(--mouseover-background);
+}
+
+.sidebar-user-section span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 5px 0 5px 0;
+}
+
+.sidebar-user-section button {
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
