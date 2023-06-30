@@ -1,6 +1,20 @@
-import Link from "next/link";
+"use client"
+
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Login() {
+  const session = useSession();
+  const router = useRouter();
+
+  console.log(session)
+
+  useEffect(() => {
+    if (session.status === 'authenticated') {
+      router.push('/')
+    }
+  }, [session])
 
   return (
     <div className="user-form-container">
@@ -8,15 +22,9 @@ export default function Login() {
         <img src="https://images.pexels.com/photos/461064/pexels-photo-461064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="person by a laptop" />
       </div>
       <div className="form-right-side">
-        <form>
-          <h2>Sign in</h2>
-          <input type="email" placeholder="email address" name="email" />
-          <input type="password" placeholder="password" name="password" />
-          <button type="submit">Sign in</button>
-          <Link href="/register">
-            <span className="form-redirect-msg">Don't have an account? Sign up</span>
-          </Link>
-        </form>
+        <h2>Sign in</h2>
+        <button onClick={() => signIn("google")}>Sign in with Google!</button>
+        <button onClick={() => signIn("github")}>Sign in with GitHub!</button>
       </div>
     </div>
   )
