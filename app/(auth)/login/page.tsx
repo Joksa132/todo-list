@@ -24,6 +24,11 @@ export default function Login() {
       <div className="form-right-side">
         <h2>Sign in</h2>
         <button onClick={() => signIn("google")}>Sign in with Google!</button>
+        <div className="seperation-line">
+          <div className="line"></div>
+          <div className="line-text">OR</div>
+          <div className="line"></div>
+        </div>
         <button onClick={() => signIn("github")}>Sign in with GitHub!</button>
       </div>
     </div>
