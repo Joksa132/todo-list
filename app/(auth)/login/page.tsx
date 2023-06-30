@@ -17,11 +17,11 @@ export default function Login() {
   }, [session])
 
   return (
-    <div className="user-form-container">
-      <div className="form-left-side">
+    <div className="login-container">
+      <div className="login-left-side">
         <img src="https://images.pexels.com/photos/461064/pexels-photo-461064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="person by a laptop" />
       </div>
-      <div className="form-right-side">
+      <div className="login-right-side">
         <h2>Sign in</h2>
         <button onClick={() => signIn("google")}>Sign in with Google!</button>
         <div className="seperation-line">
