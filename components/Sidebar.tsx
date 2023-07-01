@@ -1,10 +1,12 @@
 "use client"
 import { signOut, useSession } from "next-auth/react";
 import Icon from '@mdi/react';
-import { mdiCalendarMonth, mdiCalendarArrowRight, mdiCalendarCheck, mdiLogout } from '@mdi/js';
+import { mdiCalendarMonth, mdiCalendarArrowRight, mdiCalendarCheck, mdiLogout, mdiPlus } from '@mdi/js';
+import { useState } from "react";
 
 export default function Sidebar() {
   const { data: session } = useSession();
+  const [isNewListClicked, setIsNewListClicked] = useState(false)
 
   return (
     <nav>
@@ -30,6 +32,16 @@ export default function Sidebar() {
         </div>
         <div className="lists-container">
           <h4>Lists</h4>
+          <span onClick={() => { setIsNewListClicked(!isNewListClicked) }}>
+            <Icon path={mdiPlus} size={1} />
+            Add New List
+          </span>
+          {isNewListClicked &&
+            <form>
+              <input type="text" name="list-name" id="list-name" placeholder="List Name" />
+              <button>Save List</button>
+            </form>
+          }
         </div>
       </section>
       <section className="sidebar-user-section">
