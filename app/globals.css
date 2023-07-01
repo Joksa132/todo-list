@@ -102,3 +102,76 @@ nav {
   font-weight: 500;
   cursor: pointer;
 }
+
+/* new task form */
+
+.new-task-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  height: 94vh;
+  margin: 20px;
+  padding: 10px;
+  background-color: var(--sidebar-background);
+  border-radius: 10px;
+}
+
+.new-task-top {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.new-task-top input {
+  border: 1px solid rgb(186, 183, 183);
+  width: 100%;
+  border-radius: 5px;
+  height: 30px;
+  background-color: var(--sidebar-background);
+  padding-left: 10px;
+  font-size: 1rem;
+}
+
+.new-task-top textarea {
+  border: 1px solid rgb(186, 183, 183);
+  border-radius: 5px;
+  background-color: var(--sidebar-background);
+  padding-left: 10px;
+  padding-top: 5px;
+  font-size: 1rem;
+  resize: none;
+}
+
+.new-task-top textarea::placeholder {
+  font-family: Arial;
+}
+
+.new-task-top input::placeholder {
+  font-size: 1rem;
+}
+
+.new-task-info {
+  display: flex;
+  gap: 5px;
+}
+
+.new-task-info select {
+  width: 100%;
+  border: 1px solid rgb(186, 183, 183);
+  border-radius: 5px;
+  background-color: var(--sidebar-background);
+  padding-left: 10px;
+  padding-top: 5px;
+  font-size: 1rem;
+}
+
+.new-task-form button {
+  border-radius: 5px;
+  height: 40px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background-color: var(--button-background);
+}
