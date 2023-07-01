@@ -75,7 +75,8 @@ nav {
   margin-bottom: 5px;
 }
 
-.tasks-container span {
+.tasks-container span,
+.lists-container span {
   cursor: pointer;
   padding: 5px 0 5px 5px;
   display: flex;
@@ -84,8 +85,38 @@ nav {
 }
 
 .tasks-container span:hover,
+.lists-container span:hover,
 .sidebar-user-section:hover {
   background-color: var(--mouseover-background);
+}
+
+.lists-container form {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.lists-container input {
+  border: 1px solid rgb(186, 183, 183);
+  border-radius: 5px;
+  height: 25px;
+  background-color: var(--sidebar-background);
+  padding-left: 10px;
+  font-size: 1rem;
+  width: 180px;
+}
+
+.lists-container button {
+  border-radius: 5px;
+  height: 25px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background-color: var(--button-background);
 }
 
 .sidebar-user-section span {
