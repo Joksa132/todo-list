@@ -86,7 +86,7 @@ nav {
 
 .tasks-container span:hover,
 .lists-container span:hover,
-.sidebar-user-section:hover {
+.sidebar-user-section span:hover {
   background-color: var(--mouseover-background);
 }
 
@@ -119,12 +119,18 @@ nav {
   background-color: var(--button-background);
 }
 
+.sidebar-user-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .sidebar-user-section span {
   display: flex;
   align-items: center;
   gap: 10px;
-  cursor: pointer;
   padding: 5px 0 5px 0;
+  cursor: pointer;
 }
 
 .sidebar-user-section button {
