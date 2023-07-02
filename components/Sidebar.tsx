@@ -99,7 +99,14 @@ export default function Sidebar() {
           </span>
           {isNewListClicked &&
             <form onSubmit={handleSubmit}>
-              <input type="text" name="list-name" id="list-name" placeholder="List Name" onChange={(e) => setNewList(e.target.value)} />
+              <input
+                type="text"
+                name="list-name"
+                id="list-name"
+                placeholder="List Name"
+                onChange={(e) => setNewList(e.target.value)}
+                value={newList}
+              />
               <button type="submit">Save List</button>
             </form>
           }
