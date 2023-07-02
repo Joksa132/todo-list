@@ -19,6 +19,15 @@ const handler = NextAuth({
   },
   callbacks: {
     async session({ session }) {
+      const user = await prisma.user.findUnique({
+        where: {
+          email: session.user.email
+        },
+      });
+
+      if (user) {
+        session.user = { ...session.user, id: user.id }
+      }
       return session
     },
     async signIn({ profile, user }) {
