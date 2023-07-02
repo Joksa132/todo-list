@@ -184,6 +184,7 @@ nav {
 
 .new-task-info {
   display: flex;
+  flex: 1;
   gap: 5px;
 }
 
@@ -193,8 +194,12 @@ nav {
   border-radius: 5px;
   background-color: var(--sidebar-background);
   padding-left: 10px;
-  padding-top: 5px;
   font-size: 1rem;
+}
+
+.new-task-info label,
+.new-task-info input {
+  width: 100%;
 }
 
 .new-task-form button {
