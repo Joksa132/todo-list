@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import GitHubProvider from "next-auth/providers/github";
+import { prisma } from "@/prisma/prisma";
 
 const handler = NextAuth({
   providers: [
@@ -15,7 +16,31 @@ const handler = NextAuth({
   ],
   pages: {
     signIn: "/login"
+  },
+  callbacks: {
+    async session({ session }) {
+      return session
+    },
+    async signIn({ profile, user }) {
+      const userExists = await prisma.user.findUnique({
+        where: {
+          email: profile?.email
+        }
+      })
+
+      if (!userExists) {
+        await prisma.user.create({
+          data: {
+            email: profile?.email || "",
+            name: profile?.name || "",
+            image: profile?.image || "",
+          }
+        })
+      }
+      return true
+    }
   }
+
 })
 
 export { handler as GET, handler as POST }
