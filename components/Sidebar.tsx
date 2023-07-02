@@ -9,6 +9,7 @@ type TaskList = {
   id: number;
   name: string;
   createdAt: Date;
+  authorId: number;
 }
 
 export default function Sidebar() {
@@ -16,6 +17,29 @@ export default function Sidebar() {
   const [isNewListClicked, setIsNewListClicked] = useState(false)
   const [newList, setNewList] = useState('')
   const [taskLists, setTaskLists] = useState<TaskList[]>([])
+
+  useEffect(() => {
+    async function fetchLists() {
+      try {
+        const res = await fetch(`http://localhost:3000/api/list/${session?.user.id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+        const data = await res.json();
+        if (data.success) {
+          setTaskLists(data.taskLists)
+        }
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    if (session) {
+      fetchLists()
+    }
+  }, [session])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -67,7 +91,7 @@ export default function Sidebar() {
         <div className="lists-container">
           <h4>Lists</h4>
           {taskLists.map(list => (
-            <span>{list.name}</span>
+            <span key={list?.id}>{list?.name}</span>
           ))}
           <span onClick={() => { setIsNewListClicked(!isNewListClicked) }}>
             <Icon path={mdiPlus} size={1} />
@@ -83,7 +107,7 @@ export default function Sidebar() {
       </section>
       <section className="sidebar-user-section">
         <h4>{session?.user?.name}</h4>
-        <span onClick={() => signOut()}>
+        <span onClick={() => signOut({ callbackUrl: 'http://localhost:3000/login' })}>
           <Icon path={mdiLogout} size={1} />
           <button>Sign out</button>
         </span>
