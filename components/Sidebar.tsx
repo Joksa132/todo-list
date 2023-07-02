@@ -2,7 +2,7 @@
 
 import { signOut, useSession } from "next-auth/react";
 import Icon from '@mdi/react';
-import { mdiCalendarMonth, mdiCalendarArrowRight, mdiCalendarCheck, mdiLogout, mdiPlus } from '@mdi/js';
+import { mdiCalendarMonth, mdiCalendarArrowRight, mdiCalendarCheck, mdiLogout, mdiPlus, mdiListBoxOutline } from '@mdi/js';
 import { useEffect, useState } from "react";
 
 type TaskList = {
@@ -91,7 +91,10 @@ export default function Sidebar() {
         <div className="lists-container">
           <h4>Lists</h4>
           {taskLists.map(list => (
-            <span key={list?.id}>{list?.name}</span>
+            <span key={list?.id}>
+              <Icon path={mdiListBoxOutline} size={1} />
+              {list?.name}
+            </span>
           ))}
           <span onClick={() => { setIsNewListClicked(!isNewListClicked) }}>
             <Icon path={mdiPlus} size={1} />
