@@ -45,6 +45,7 @@ export default function Sidebar() {
         </div>
       </section>
       <section className="sidebar-user-section">
+        <h4>{session?.user?.name}</h4>
         <span onClick={() => signOut()}>
           <Icon path={mdiLogout} size={1} />
           <button>Sign out</button>
