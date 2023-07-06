@@ -12,7 +12,11 @@ type TaskList = {
   authorId: number;
 }
 
-export default function Sidebar() {
+type Props = {
+  handleListClick: (listName: number) => void
+};
+
+export default function Sidebar({ handleListClick }: Props) {
   const { data: session } = useSession();
   const [isNewListClicked, setIsNewListClicked] = useState(false)
   const [newList, setNewList] = useState('')
@@ -91,7 +95,7 @@ export default function Sidebar() {
         <div className="lists-container">
           <h4>Lists</h4>
           {taskLists.map(list => (
-            <span key={list?.id}>
+            <span key={list?.id} onClick={() => handleListClick(list?.id)}>
               <Icon path={mdiListBoxOutline} size={1} />
               {list?.name}
             </span>
