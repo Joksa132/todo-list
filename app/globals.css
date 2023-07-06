@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap');
+
 :root {
   --body-background: #e6d8d8;
   --button-background: #FFD43B;
@@ -15,6 +17,13 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+input,
+select,
+button,
+textarea {
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
