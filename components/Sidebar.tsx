@@ -13,7 +13,7 @@ type TaskList = {
 }
 
 type Props = {
-  handleListClick: (listName: number) => void
+  handleListClick: (listId: number, listName: string) => void
 };
 
 export default function Sidebar({ handleListClick }: Props) {
@@ -95,7 +95,7 @@ export default function Sidebar({ handleListClick }: Props) {
         <div className="lists-container">
           <h4>Lists</h4>
           {taskLists.map(list => (
-            <span key={list?.id} onClick={() => handleListClick(list?.id)}>
+            <span key={list?.id} onClick={() => handleListClick(list?.id, list?.name)}>
               <Icon path={mdiListBoxOutline} size={1} />
               {list?.name}
             </span>

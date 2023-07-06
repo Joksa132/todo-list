@@ -6,11 +6,19 @@ import NewTaskForm from "@/components/NewTaskForm";
 import { useState } from "react";
 import TaskList from "@/components/TaskList";
 
-export default function Dashboard() {
-  const [selectedList, setSelectedList] = useState<number | null>(null)
+type List = {
+  id: number | null;
+  name: string;
+}
 
-  const handleListClick = (listName: number) => {
-    setSelectedList(listName)
+export default function Dashboard() {
+  const [selectedList, setSelectedList] = useState<List>({
+    id: null,
+    name: ''
+  })
+
+  const handleListClick = (listId: number, listName: string) => {
+    setSelectedList({ id: listId, name: listName })
   }
 
   return (
