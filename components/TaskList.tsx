@@ -8,7 +8,8 @@ type Props = {
   selectedList: {
     id: number | null;
     name: string;
-  }
+  },
+  handleTaskForm: (isOpen: boolean) => void;
 }
 
 type Tasks = {
@@ -20,7 +21,7 @@ type Tasks = {
 
 type ClickedTask = number | null
 
-export default function TaskList({ selectedList }: Props) {
+export default function TaskList({ selectedList, handleTaskForm }: Props) {
   const [tasks, setTasks] = useState<Tasks[]>([])
   const [clickedTask, setClickedTask] = useState<ClickedTask>(null)
 
@@ -53,7 +54,7 @@ export default function TaskList({ selectedList }: Props) {
         <h1>{selectedList.name}</h1>
         <span>{tasks.length}</span>
       </div>
-      <button className="new-task-button">
+      <button className="new-task-button" onClick={() => handleTaskForm(true)}>
         <Icon path={mdiPlus} size={1} />
         Add New Task
       </button>
