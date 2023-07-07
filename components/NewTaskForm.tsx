@@ -19,7 +19,12 @@ type Task = {
   date: string;
 }
 
-export default function NewTaskForm() {
+type Props = {
+  isFormOpen: boolean,
+  handleTaskForm: (isOpen: boolean) => void;
+}
+
+export default function NewTaskForm({ isFormOpen, handleTaskForm }: Props) {
   const { data: session } = useSession()
   const [lists, setLists] = useState<TaskList[]>([])
   const [task, setTask] = useState<Task>({
@@ -28,7 +33,6 @@ export default function NewTaskForm() {
     list: null,
     date: '',
   })
-  const [isOpened, setIsOpened] = useState(false)
 
   useEffect(() => {
     async function fetchLists() {
@@ -84,12 +88,12 @@ export default function NewTaskForm() {
 
   return (
     <>
-      {isOpened && (
+      {isFormOpen && (
         <form className="new-task-form" onSubmit={handleSubmit}>
           <div className="new-task-top">
             <h2>
               New Task:
-              <span onClick={() => setIsOpened(prevState => !prevState)}>
+              <span onClick={() => handleTaskForm(false)}>
                 <Icon path={mdiClose} size={1} />
               </span>
             </h2>
