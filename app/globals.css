@@ -37,12 +37,15 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 300px;
   height: 94vh;
   margin: 20px;
-  padding: 10px;
+  padding: 10px 20px 10px 10px;
   background-color: var(--sidebar-background);
   border-radius: 10px;
+}
+
+.nav-toggled {
+  background-color: inherit;
 }
 
 .sidebar-task-section {
@@ -56,6 +59,18 @@ nav {
   flex-direction: column;
   gap: 7px;
   justify-content: center;
+}
+
+.search-bar h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-bar span {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .search-bar input {
@@ -155,7 +170,6 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 300px;
   height: 94vh;
   margin: 20px;
   padding: 10px;
@@ -189,10 +203,6 @@ nav {
   resize: none;
 }
 
-.new-task-top textarea::placeholder {
-  font-family: Arial;
-}
-
 .new-task-top input::placeholder {
   font-size: 1rem;
 }
@@ -200,7 +210,6 @@ nav {
 .new-task-info {
   display: flex;
   flex: 1;
-  gap: 5px;
 }
 
 .new-task-info select {
