@@ -5,11 +5,19 @@ import Icon from '@mdi/react';
 import { mdiCalendarMonth, mdiCalendarArrowRight, mdiCalendarCheck, mdiLogout, mdiPlus, mdiListBoxOutline, mdiMenu } from '@mdi/js';
 import { useEffect, useState } from "react";
 
+type Task = {
+  id: number;
+  title: string;
+  description: string;
+  dueDate: Date;
+}
+
 type TaskList = {
   id: number;
   name: string;
   createdAt: Date;
   authorId: number;
+  tasks: Task[];
 }
 
 type Props = {
@@ -107,10 +115,13 @@ export default function Sidebar({ handleListClick }: Props) {
             <div className="lists-container">
               <h4>Lists</h4>
               {taskLists.map(list => (
-                <span key={list?.id} onClick={() => handleListClick(list?.id, list?.name)}>
-                  <Icon path={mdiListBoxOutline} size={1} />
-                  {list?.name}
-                </span>
+                <div className="individual-list">
+                  <span key={list?.id} onClick={() => handleListClick(list?.id, list?.name)}>
+                    <Icon path={mdiListBoxOutline} size={1} />
+                    {list?.name}
+                  </span>
+                  <span className="individual-list-count">{list.tasks.length}</span>
+                </div>
               ))}
               <span onClick={() => { setIsNewListClicked(!isNewListClicked) }}>
                 <Icon path={mdiPlus} size={1} />
