@@ -8,6 +8,9 @@ export async function GET(request: Request) {
   const taskLists = await prisma.taskList.findMany({
     where: {
       authorId: id
+    },
+    include: {
+      tasks: true
     }
   })
 
