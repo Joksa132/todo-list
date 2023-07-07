@@ -2,6 +2,8 @@
 
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react"
+import Icon from '@mdi/react';
+import { mdiClose } from '@mdi/js';
 
 type TaskList = {
   id: number;
@@ -26,6 +28,7 @@ export default function NewTaskForm() {
     list: null,
     date: '',
   })
+  const [isOpened, setIsOpened] = useState(false)
 
   useEffect(() => {
     async function fetchLists() {
@@ -80,40 +83,49 @@ export default function NewTaskForm() {
   }
 
   return (
-    <form className="new-task-form" onSubmit={handleSubmit}>
-      <div className="new-task-top">
-        <h2>New Task:</h2>
-        <input
-          type="text"
-          name="task-title"
-          id="task-title"
-          placeholder="Title"
-          onChange={(e) => setTask({ ...task, title: e.target.value })}
-          value={task?.title}
-          required
-        />
-        <textarea
-          name="task-description"
-          id="task-description"
-          placeholder="Description"
-          rows={7}
-          onChange={(e) => setTask({ ...task, description: e.target.value })}
-          value={task?.description}
-        />
-        <div className="new-task-info">
-          <label>List:</label>
-          <select onChange={(e) => setTask({ ...task, list: parseInt(e.target.value) })} required>
-            {lists.map(list => (
-              <option key={list?.id} value={list?.id}>{list?.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="new-task-info">
-          <label>Due date:</label>
-          <input type="date" onChange={(e) => setTask({ ...task, date: e.target.value })} required />
-        </div>
-      </div>
-      <button>Save task</button>
-    </form>
+    <>
+      {isOpened && (
+        <form className="new-task-form" onSubmit={handleSubmit}>
+          <div className="new-task-top">
+            <h2>
+              New Task:
+              <span onClick={() => setIsOpened(prevState => !prevState)}>
+                <Icon path={mdiClose} size={1} />
+              </span>
+            </h2>
+            <input
+              type="text"
+              name="task-title"
+              id="task-title"
+              placeholder="Title"
+              onChange={(e) => setTask({ ...task, title: e.target.value })}
+              value={task?.title}
+              required
+            />
+            <textarea
+              name="task-description"
+              id="task-description"
+              placeholder="Description"
+              rows={7}
+              onChange={(e) => setTask({ ...task, description: e.target.value })}
+              value={task?.description}
+            />
+            <div className="new-task-info">
+              <label>List:</label>
+              <select onChange={(e) => setTask({ ...task, list: parseInt(e.target.value) })} required>
+                {lists.map(list => (
+                  <option key={list?.id} value={list?.id}>{list?.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="new-task-info">
+              <label>Due date:</label>
+              <input type="date" onChange={(e) => setTask({ ...task, date: e.target.value })} required />
+            </div>
+          </div>
+          <button>Save task</button>
+        </form>
+      )}
+    </>
   )
 }
