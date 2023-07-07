@@ -77,7 +77,7 @@ nav {
 }
 
 .search-bar input {
-  border: 1px solid rgb(186, 183, 183);
+  border: 1px solid rgba(186, 183, 183, 0.3);
   width: 100%;
   border-radius: 5px;
   height: 30px;
@@ -105,14 +105,13 @@ nav {
 .tasks-container span,
 .lists-container span {
   cursor: pointer;
-  padding: 5px 0 5px 5px;
+  padding: 5px;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .tasks-container span:hover,
-.lists-container span:hover,
 .sidebar-user-section span:hover {
   background-color: var(--mouseover-background);
 }
@@ -132,18 +131,36 @@ nav {
   background-color: var(--sidebar-background);
   padding-left: 10px;
   font-size: 1rem;
-  width: 180px;
+  width: 140px;
 }
 
 .lists-container button {
   border-radius: 5px;
-  height: 25px;
-  width: 100%;
+  padding: 2px 4px 2px 4px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   border: none;
   background-color: var(--button-background);
+}
+
+.individual-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.individual-list:hover {
+  background-color: var(--mouseover-background);
+  cursor: pointer;
+}
+
+.individual-list-count {
+  background-color: #EBEBEB;
+}
+
+.individual-list:hover .individual-list-count {
+  background-color: #FAFAFA;
 }
 
 .sidebar-user-section {
@@ -200,7 +217,7 @@ nav {
 }
 
 .new-task-top input {
-  border: 1px solid rgb(186, 183, 183);
+  border: 1px solid rgba(186, 183, 183, 0.3);
   width: 100%;
   border-radius: 5px;
   height: 30px;
@@ -210,7 +227,7 @@ nav {
 }
 
 .new-task-top textarea {
-  border: 1px solid rgb(186, 183, 183);
+  border: 1px solid rgba(186, 183, 183, 0.3);
   border-radius: 5px;
   background-color: var(--sidebar-background);
   padding-left: 10px;
@@ -230,7 +247,7 @@ nav {
 
 .new-task-info select {
   width: 100%;
-  border: 1px solid rgb(186, 183, 183);
+  border: 1px solid rgba(186, 183, 183, 0.3);
   border-radius: 5px;
   background-color: var(--sidebar-background);
   padding-left: 10px;
@@ -285,6 +302,7 @@ nav {
   display: flex;
   align-items: center;
   padding: 10px 5px 10px 12px;
+  margin-bottom: 5px;
   gap: 10px;
   border: 1px solid rgba(186, 183, 183, 0.2);
   width: 100%;
