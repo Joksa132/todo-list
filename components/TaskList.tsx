@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Icon from '@mdi/react';
-import { mdiPlus, mdiChevronDown, mdiChevronUp } from '@mdi/js';
+import { mdiPlus, mdiChevronDown, mdiChevronUp, mdiTextBoxOutline, mdiClipboardTextClockOutline, mdiTextBoxEditOutline } from '@mdi/js';
 
 type Props = {
   selectedList: {
@@ -18,8 +18,11 @@ type Tasks = {
   dueDate: Date;
 }
 
+type ClickedTask = number | null
+
 export default function TaskList({ selectedList }: Props) {
   const [tasks, setTasks] = useState<Tasks[]>([])
+  const [clickedTask, setClickedTask] = useState<ClickedTask>(null)
 
   useEffect(() => {
     async function fetchTasks() {
@@ -44,24 +47,43 @@ export default function TaskList({ selectedList }: Props) {
     }
   }, [selectedList])
 
-  console.log(tasks)
-
   return (
     <div className="list-container">
       <div className="list-title">
         <h1>{selectedList.name}</h1>
         <span>{tasks.length}</span>
       </div>
-      <button>
+      <button className="new-task-button">
         <Icon path={mdiPlus} size={1} />
         Add New Task
       </button>
       <div className="list-tasks">
         {tasks.map(task => (
-          <span>
-            {task?.title}
-            <Icon path={mdiChevronDown} size={1} />
-          </span>
+          <div className="task-container" key={task?.id}>
+            <span className="task-title" onClick={() => setClickedTask(prevState => prevState === task?.id ? null : task?.id)}>
+              {task?.title}
+              <Icon path={clickedTask === task?.id ? mdiChevronUp : mdiChevronDown} size={1} />
+            </span>
+            {clickedTask === task?.id && (
+              <div className="task-info">
+                <span>
+                  <Icon path={mdiTextBoxOutline} size={1} />
+                  {task?.description}
+                </span>
+                <span>
+                  <Icon path={mdiClipboardTextClockOutline} size={1} />
+                  {new Date(task?.dueDate).toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                  })}
+                </span>
+                <button>
+                  <Icon path={mdiTextBoxEditOutline} size={1} />
+                  Edit task</button>
+              </div>
+            )}
+          </div>
         ))}
       </div>
     </div>
