@@ -2,7 +2,7 @@
 
 import { signOut, useSession } from "next-auth/react";
 import Icon from '@mdi/react';
-import { mdiCalendarMonth, mdiCalendarArrowRight, mdiCalendarCheck, mdiLogout, mdiPlus, mdiListBoxOutline } from '@mdi/js';
+import { mdiCalendarMonth, mdiCalendarArrowRight, mdiCalendarCheck, mdiLogout, mdiPlus, mdiListBoxOutline, mdiMenu } from '@mdi/js';
 import { useEffect, useState } from "react";
 
 type TaskList = {
@@ -21,6 +21,7 @@ export default function Sidebar({ handleListClick }: Props) {
   const [isNewListClicked, setIsNewListClicked] = useState(false)
   const [newList, setNewList] = useState('')
   const [taskLists, setTaskLists] = useState<TaskList[]>([])
+  const [isToggled, setIsToggled] = useState(false)
 
   useEffect(() => {
     async function fetchLists() {
@@ -71,61 +72,74 @@ export default function Sidebar({ handleListClick }: Props) {
   }
 
   return (
-    <nav>
-      <section className="sidebar-task-section">
-        <div className="search-bar">
-          <h2>Menu</h2>
-          <input type="text" name="search-tasks" id="search-tasks" placeholder="Search"></input>
+    <nav className={isToggled ? "nav-toggled" : ""}>
+      {isToggled ?
+        <div className="menu-icon" onClick={() => setIsToggled(prevState => !prevState)}>
+          <Icon path={mdiMenu} size={1.2} style={{ cursor: "pointer" }} />
         </div>
-        <div className="tasks-container">
-          <h4>Tasks</h4>
-          <span>
-            <Icon path={mdiCalendarCheck} size={1} />
-            Today
-          </span>
-          <span>
-            <Icon path={mdiCalendarArrowRight} size={1} />
-            Upcoming
-          </span>
-          <span>
-            <Icon path={mdiCalendarMonth} size={1} />
-            Calendar
-          </span>
-        </div>
-        <div className="lists-container">
-          <h4>Lists</h4>
-          {taskLists.map(list => (
-            <span key={list?.id} onClick={() => handleListClick(list?.id, list?.name)}>
-              <Icon path={mdiListBoxOutline} size={1} />
-              {list?.name}
+        :
+        <>
+          <section className="sidebar-task-section">
+            <div className="search-bar">
+              <h2>
+                Menu
+                <span onClick={() => setIsToggled(prevState => !prevState)}>
+                  <Icon path={mdiMenu} size={1} />
+                </span>
+              </h2>
+              <input type="text" name="search-tasks" id="search-tasks" placeholder="Search"></input>
+            </div>
+            <div className="tasks-container">
+              <h4>Tasks</h4>
+              <span>
+                <Icon path={mdiCalendarCheck} size={1} />
+                Today
+              </span>
+              <span>
+                <Icon path={mdiCalendarArrowRight} size={1} />
+                Upcoming
+              </span>
+              <span>
+                <Icon path={mdiCalendarMonth} size={1} />
+                Calendar
+              </span>
+            </div>
+            <div className="lists-container">
+              <h4>Lists</h4>
+              {taskLists.map(list => (
+                <span key={list?.id} onClick={() => handleListClick(list?.id, list?.name)}>
+                  <Icon path={mdiListBoxOutline} size={1} />
+                  {list?.name}
+                </span>
+              ))}
+              <span onClick={() => { setIsNewListClicked(!isNewListClicked) }}>
+                <Icon path={mdiPlus} size={1} />
+                Add New List
+              </span>
+              {isNewListClicked &&
+                <form onSubmit={handleSubmit}>
+                  <input
+                    type="text"
+                    name="list-name"
+                    id="list-name"
+                    placeholder="List Name"
+                    onChange={(e) => setNewList(e.target.value)}
+                    value={newList}
+                  />
+                  <button type="submit">Save List</button>
+                </form>
+              }
+            </div>
+          </section>
+          <section className="sidebar-user-section">
+            <h4>{session?.user?.name}</h4>
+            <span onClick={() => signOut({ callbackUrl: 'http://localhost:3000/login' })}>
+              <Icon path={mdiLogout} size={1} />
+              <button>Sign out</button>
             </span>
-          ))}
-          <span onClick={() => { setIsNewListClicked(!isNewListClicked) }}>
-            <Icon path={mdiPlus} size={1} />
-            Add New List
-          </span>
-          {isNewListClicked &&
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="list-name"
-                id="list-name"
-                placeholder="List Name"
-                onChange={(e) => setNewList(e.target.value)}
-                value={newList}
-              />
-              <button type="submit">Save List</button>
-            </form>
-          }
-        </div>
-      </section>
-      <section className="sidebar-user-section">
-        <h4>{session?.user?.name}</h4>
-        <span onClick={() => signOut({ callbackUrl: 'http://localhost:3000/login' })}>
-          <Icon path={mdiLogout} size={1} />
-          <button>Sign out</button>
-        </span>
-      </section>
+          </section>
+        </>
+      }
     </nav>
   )
 }
