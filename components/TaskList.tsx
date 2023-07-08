@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Icon from '@mdi/react';
-import { mdiPlus, mdiChevronDown, mdiChevronUp, mdiChevronRight, mdiTextBoxOutline, mdiTextBoxEditOutline } from '@mdi/js';
+import { mdiPlus } from '@mdi/js';
 import IndividualTask from "./Task";
 
 type Props = {

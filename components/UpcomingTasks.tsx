@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react"
 import Icon from '@mdi/react';
-import { mdiPlus, mdiChevronDown, mdiChevronUp, mdiChevronRight, mdiTextBoxOutline, mdiTextBoxEditOutline } from '@mdi/js';
+import { mdiPlus } from '@mdi/js';
 import { isAfter, isTomorrow, isWithinInterval, setWeek } from "date-fns";
 import IndividualTask from "./Task";
 import { Task } from "@/types/types";
