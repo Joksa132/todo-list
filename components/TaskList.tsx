@@ -23,6 +23,7 @@ type Tasks = {
 export default function TaskList({ selectedList, handleTaskForm }: Props) {
   const [tasks, setTasks] = useState<Tasks[]>([])
   const [clickedTask, setClickedTask] = useState<number | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     async function fetchTasks() {
@@ -36,8 +37,8 @@ export default function TaskList({ selectedList, handleTaskForm }: Props) {
         const data = await res.json();
         if (data.success) {
           setTasks(data.tasks)
+          setLoading(false)
         }
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -49,19 +50,25 @@ export default function TaskList({ selectedList, handleTaskForm }: Props) {
 
   return (
     <div className="list-container">
-      <div className="list-title">
-        <h1>{selectedList?.name}</h1>
-        <span>{tasks.length}</span>
-      </div>
-      <button className="new-task-button" onClick={() => handleTaskForm(true)}>
-        <Icon path={mdiPlus} size={1} />
-        Add New Task
-      </button>
-      <div className="list-tasks">
-        {tasks.map(task => (
-          <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} />
-        ))}
-      </div>
+      {loading ?
+        <div className="loading-spinner"></div>
+        :
+        <>
+          <div className="list-title">
+            <h1>{selectedList?.name}</h1>
+            <span>{tasks.length}</span>
+          </div>
+          <button className="new-task-button" onClick={() => handleTaskForm(true)}>
+            <Icon path={mdiPlus} size={1} />
+            Add New Task
+          </button>
+          <div className="list-tasks">
+            {tasks.map(task => (
+              <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} />
+            ))}
+          </div>
+        </>
+      }
     </div>
   )
 }

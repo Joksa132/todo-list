@@ -16,6 +16,7 @@ export default function UpcomingTasks({ handleTaskForm }: Props) {
   const { data: session } = useSession();
   const [tasks, setTasks] = useState<Task[]>([])
   const [clickedTask, setClickedTask] = useState<number | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     async function fetchTasks() {
@@ -29,9 +30,8 @@ export default function UpcomingTasks({ handleTaskForm }: Props) {
         const data = await res.json();
         if (data.success) {
           setTasks(data.tasks)
+          setLoading(false)
         }
-
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -79,36 +79,42 @@ export default function UpcomingTasks({ handleTaskForm }: Props) {
 
   return (
     <div className="list-container">
-      <div className="list-title">
-        <h1>Upcoming</h1>
-        <span>{tasks.length}</span>
-      </div>
-      <button className="new-task-button" onClick={() => handleTaskForm(true)}>
-        <Icon path={mdiPlus} size={1} />
-        Add New Task
-      </button>
-      <div className="upcoming-tasks">
-        <div className="list-tasks">
-          <h3>Tomorrow</h3>
-          {tomorrowTasks?.map(task => (
-            <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
-          ))}
-        </div>
-        <div className="list-tasks-bottom">
-          <div className="this-week-tasks">
-            <h3>This Week</h3>
-            {weekTasks?.map(task => (
-              <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
-            ))}
+      {loading ?
+        <div className="loading-spinner"></div>
+        :
+        <>
+          <div className="list-title">
+            <h1>Upcoming</h1>
+            <span>{tasks.length}</span>
           </div>
-          <div className="later-tasks">
-            <h3>Later Tasks</h3>
-            {laterTasks?.map(task => (
-              <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
-            ))}
+          <button className="new-task-button" onClick={() => handleTaskForm(true)}>
+            <Icon path={mdiPlus} size={1} />
+            Add New Task
+          </button>
+          <div className="upcoming-tasks">
+            <div className="list-tasks">
+              <h3>Tomorrow</h3>
+              {tomorrowTasks?.map(task => (
+                <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
+              ))}
+            </div>
+            <div className="list-tasks-bottom">
+              <div className="this-week-tasks">
+                <h3>This Week</h3>
+                {weekTasks?.map(task => (
+                  <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
+                ))}
+              </div>
+              <div className="later-tasks">
+                <h3>Later Tasks</h3>
+                {laterTasks?.map(task => (
+                  <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      }
     </div>
   )
 }
