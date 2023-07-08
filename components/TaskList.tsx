@@ -19,11 +19,9 @@ type Tasks = {
   dueDate: Date;
 }
 
-type ClickedTask = number | null
-
 export default function TaskList({ selectedList, handleTaskForm }: Props) {
   const [tasks, setTasks] = useState<Tasks[]>([])
-  const [clickedTask, setClickedTask] = useState<ClickedTask>(null)
+  const [clickedTask, setClickedTask] = useState<number | null>(null)
 
   useEffect(() => {
     async function fetchTasks() {
