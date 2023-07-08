@@ -117,8 +117,8 @@ export default function Sidebar({ handleListClick, handleTodayClick, handleUpcom
             <div className="lists-container">
               <h4>Lists</h4>
               {taskLists.map(list => (
-                <div className="individual-list">
-                  <span key={list?.id} onClick={() => handleListClick(list?.id, list?.name)}>
+                <div className="individual-list" key={list?.id}>
+                  <span onClick={() => handleListClick(list?.id, list?.name)}>
                     <Icon path={mdiListBoxOutline} size={1} />
                     {list?.name}
                   </span>
