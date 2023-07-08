@@ -8,7 +8,7 @@ type Props = {
   selectedList: {
     id: number | null;
     name: string;
-  },
+  } | null,
   handleTaskForm: (isOpen: boolean) => void;
 }
 
@@ -51,7 +51,7 @@ export default function TaskList({ selectedList, handleTaskForm }: Props) {
   return (
     <div className="list-container">
       <div className="list-title">
-        <h1>{selectedList.name}</h1>
+        <h1>{selectedList?.name}</h1>
         <span>{tasks.length}</span>
       </div>
       <button className="new-task-button" onClick={() => handleTaskForm(true)}>
