@@ -1,16 +1,10 @@
 "use client"
 
 import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Icon from '@mdi/react';
 import { mdiClose } from '@mdi/js';
-
-type TaskList = {
-  id: number;
-  name: string;
-  createdAt: Date;
-  authorId: number;
-}
+import { TaskLists } from "@/types/types";
 
 type Task = {
   title: string;
@@ -21,41 +15,18 @@ type Task = {
 
 type Props = {
   isFormOpen: boolean,
-  handleTaskForm: (isOpen: boolean) => void;
+  handleTaskForm: (isOpen: boolean) => void,
+  lists: TaskLists[]
 }
 
-export default function NewTaskForm({ isFormOpen, handleTaskForm }: Props) {
+export default function NewTaskForm({ isFormOpen, handleTaskForm, lists }: Props) {
   const { data: session } = useSession()
-  const [lists, setLists] = useState<TaskList[]>([])
   const [task, setTask] = useState<Task>({
     title: '',
     description: '',
     list: null,
     date: '',
   })
-
-  useEffect(() => {
-    async function fetchLists() {
-      try {
-        const res = await fetch(`http://localhost:3000/api/list/${session?.user.id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        })
-        const data = await res.json();
-        if (data.success) {
-          setLists(data.taskLists)
-        }
-        console.log(data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    if (session) {
-      fetchLists()
-    }
-  }, [session])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()

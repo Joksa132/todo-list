@@ -3,58 +3,22 @@
 import { signOut, useSession } from "next-auth/react";
 import Icon from '@mdi/react';
 import { mdiCalendarMonth, mdiCalendarArrowRight, mdiCalendarCheck, mdiLogout, mdiPlus, mdiListBoxOutline, mdiMenu } from '@mdi/js';
-import { useEffect, useState } from "react";
-
-type Task = {
-  id: number;
-  title: string;
-  description: string;
-  dueDate: Date;
-}
-
-type TaskList = {
-  id: number;
-  name: string;
-  createdAt: Date;
-  authorId: number;
-  tasks: Task[];
-}
+import { useState } from "react";
+import { Task, TaskLists } from "@/types/types";
 
 type Props = {
   handleListClick: (listId: number, listName: string) => void,
   handleTodayClick: () => void,
-  handleUpcomingClick: () => void
+  handleUpcomingClick: () => void,
+  taskLists: TaskLists[],
+  setTaskLists: React.Dispatch<React.SetStateAction<TaskLists[]>>
 };
 
-export default function Sidebar({ handleListClick, handleTodayClick, handleUpcomingClick }: Props) {
+export default function Sidebar({ handleListClick, handleTodayClick, handleUpcomingClick, taskLists, setTaskLists }: Props) {
   const { data: session } = useSession();
   const [isNewListClicked, setIsNewListClicked] = useState(false)
   const [newList, setNewList] = useState('')
-  const [taskLists, setTaskLists] = useState<TaskList[]>([])
   const [isToggled, setIsToggled] = useState(false)
-
-  useEffect(() => {
-    async function fetchLists() {
-      try {
-        const res = await fetch(`http://localhost:3000/api/list/${session?.user.id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        })
-        const data = await res.json();
-        if (data.success) {
-          setTaskLists(data.taskLists)
-        }
-        console.log(data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    if (session) {
-      fetchLists()
-    }
-  }, [session])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -72,7 +36,7 @@ export default function Sidebar({ handleListClick, handleTodayClick, handleUpcom
 
       const data = await res.json();
       if (data.success) {
-        setTaskLists((prevLists: TaskList[]) => [...prevLists, data.newList])
+        setTaskLists((prevLists: TaskLists[]) => [...prevLists, data.newList])
         setNewList('')
       }
       console.log(data)
