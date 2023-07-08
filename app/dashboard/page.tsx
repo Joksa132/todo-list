@@ -44,7 +44,7 @@ export default function Dashboard() {
         <TaskList selectedList={selectedList} handleTaskForm={handleFormClick} />
       )}
       {activeComponent === 'today' && (
-        <TodayTasks />
+        <TodayTasks handleTaskForm={handleFormClick} />
       )}
       {activeComponent === 'upcoming' && (
         <UpcomingTasks />
