@@ -4,13 +4,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react"
 import Icon from '@mdi/react';
 import { mdiPlus, mdiChevronDown, mdiChevronUp, mdiChevronRight, mdiTextBoxOutline, mdiTextBoxEditOutline } from '@mdi/js';
-
-type Tasks = {
-  id: number;
-  title: string;
-  description: string;
-  dueDate: Date;
-}
+import { Task } from "@/types/types";
 
 type Props = {
   handleTaskForm: (isOpen: boolean) => void;
@@ -18,7 +12,7 @@ type Props = {
 
 export default function TodayTasks({ handleTaskForm }: Props) {
   const { data: session } = useSession();
-  const [tasks, setTasks] = useState<Tasks[]>([])
+  const [tasks, setTasks] = useState<Task[]>([])
   const [clickedTask, setClickedTask] = useState<number | null>(null)
 
   useEffect(() => {
