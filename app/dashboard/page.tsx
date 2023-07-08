@@ -4,19 +4,46 @@ import Sidebar from "@/components/Sidebar";
 import NewTaskForm from "@/components/NewTaskForm";
 import TaskList from "@/components/TaskList";
 import styles from "./dashboard.module.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TodayTasks from "@/components/TodayTasks";
 import UpcomingTasks from "@/components/UpcomingTasks";
+import { useSession } from "next-auth/react";
+import { TaskLists } from "@/types/types";
 
-type List = {
+type SelectedList = {
   id: number | null;
   name: string;
 }
 
 export default function Dashboard() {
-  const [selectedList, setSelectedList] = useState<List | null>(null)
+  const { data: session } = useSession();
+  const [selectedList, setSelectedList] = useState<SelectedList | null>(null)
   const [activeComponent, setActiveComponent] = useState('today')
   const [isFormOpen, setIsFormOpen] = useState(false)
+  const [allLists, setAllLists] = useState<TaskLists[]>([])
+
+  useEffect(() => {
+    async function fetchLists() {
+      try {
+        const res = await fetch(`http://localhost:3000/api/list/${session?.user.id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+        const data = await res.json();
+        if (data.success) {
+          setAllLists(data.taskLists)
+        }
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    if (session) {
+      fetchLists()
+    }
+  }, [session])
 
   const handleListClick = (listId: number, listName: string) => {
     setSelectedList({ id: listId, name: listName })
@@ -39,7 +66,13 @@ export default function Dashboard() {
 
   return (
     <main className={styles["main-container"]}>
-      <Sidebar handleListClick={handleListClick} handleTodayClick={handleTodayClick} handleUpcomingClick={handleUpcomingClick} />
+      <Sidebar
+        handleListClick={handleListClick}
+        handleTodayClick={handleTodayClick}
+        handleUpcomingClick={handleUpcomingClick}
+        taskLists={allLists}
+        setTaskLists={setAllLists}
+      />
       {activeComponent === 'taskList' && (
         <TaskList selectedList={selectedList} handleTaskForm={handleFormClick} />
       )}
@@ -47,9 +80,9 @@ export default function Dashboard() {
         <TodayTasks handleTaskForm={handleFormClick} />
       )}
       {activeComponent === 'upcoming' && (
-        <UpcomingTasks />
+        <UpcomingTasks handleTaskForm={handleFormClick} />
       )}
-      <NewTaskForm isFormOpen={isFormOpen} handleTaskForm={handleFormClick} />
+      <NewTaskForm isFormOpen={isFormOpen} handleTaskForm={handleFormClick} lists={allLists} />
     </main>
   )
 }
