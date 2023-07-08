@@ -24,7 +24,7 @@ export default function TodayTasks({ handleTaskForm }: Props) {
   useEffect(() => {
     async function fetchTasks() {
       try {
-        const res = await fetch(`http://localhost:3000/api/task/date/${session?.user.id}`, {
+        const res = await fetch(`http://localhost:3000/api/task/today/${session?.user.id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
