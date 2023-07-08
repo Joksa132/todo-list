@@ -21,10 +21,12 @@ type TaskList = {
 }
 
 type Props = {
-  handleListClick: (listId: number, listName: string) => void
+  handleListClick: (listId: number, listName: string) => void,
+  handleTodayClick: () => void,
+  handleUpcomingClick: () => void
 };
 
-export default function Sidebar({ handleListClick }: Props) {
+export default function Sidebar({ handleListClick, handleTodayClick, handleUpcomingClick }: Props) {
   const { data: session } = useSession();
   const [isNewListClicked, setIsNewListClicked] = useState(false)
   const [newList, setNewList] = useState('')
@@ -99,11 +101,11 @@ export default function Sidebar({ handleListClick }: Props) {
             </div>
             <div className="tasks-container">
               <h4>Tasks</h4>
-              <span>
+              <span onClick={() => handleTodayClick()}>
                 <Icon path={mdiCalendarCheck} size={1} />
                 Today
               </span>
-              <span>
+              <span onClick={() => handleUpcomingClick()}>
                 <Icon path={mdiCalendarArrowRight} size={1} />
                 Upcoming
               </span>
