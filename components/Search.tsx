@@ -44,18 +44,29 @@ export default function Search({ searchValue }: Props) {
 
   return (
     <div className="list-container">
-      <div className="list-title">
-        <h1>Search results for <i>{searchValue}</i></h1>
-        <span>{tasks.length}</span>
-      </div>
       {loading ?
         <div className="loading-spinner"></div>
         :
-        <div className="list-tasks">
-          {tasks.map(task => (
-            <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} />
-          ))}
-        </div>
+        <>
+          {tasks.length ?
+            <>
+              <div className="list-title">
+                <h1>Search results for <i>{searchValue}</i></h1>
+                <span>{tasks.length}</span>
+              </div>
+
+              <div className="list-tasks">
+                {tasks.map(task => (
+                  <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} />
+                ))}
+              </div>
+            </>
+            :
+            <div className="list-title">
+              <h1>There are no results for <i>{searchValue}</i></h1>
+            </div>
+          }
+        </>
       }
     </div>
   )
