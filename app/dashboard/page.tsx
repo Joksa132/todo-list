@@ -9,6 +9,7 @@ import TodayTasks from "@/components/TodayTasks";
 import UpcomingTasks from "@/components/UpcomingTasks";
 import { useSession } from "next-auth/react";
 import { TaskLists } from "@/types/types";
+import Search from "@/components/Search";
 
 type SelectedList = {
   id: number | null;
@@ -21,6 +22,7 @@ export default function Dashboard() {
   const [activeComponent, setActiveComponent] = useState('today')
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [allLists, setAllLists] = useState<TaskLists[]>([])
+  const [searchValue, setSearchValue] = useState<string>('');
 
   useEffect(() => {
     async function fetchLists() {
@@ -64,6 +66,11 @@ export default function Dashboard() {
     setIsFormOpen(formState)
   }
 
+  const handleSearch = (value: string) => {
+    setSearchValue(value)
+    setActiveComponent('search')
+  };
+
   return (
     <main className={styles["main-container"]}>
       <Sidebar
@@ -72,6 +79,7 @@ export default function Dashboard() {
         handleUpcomingClick={handleUpcomingClick}
         taskLists={allLists}
         setTaskLists={setAllLists}
+        handleSearch={handleSearch}
       />
       {activeComponent === 'taskList' && (
         <TaskList selectedList={selectedList} handleTaskForm={handleFormClick} />
@@ -81,6 +89,9 @@ export default function Dashboard() {
       )}
       {activeComponent === 'upcoming' && (
         <UpcomingTasks handleTaskForm={handleFormClick} />
+      )}
+      {activeComponent === 'search' && (
+        <Search searchValue={searchValue} />
       )}
       <NewTaskForm isFormOpen={isFormOpen} handleTaskForm={handleFormClick} lists={allLists} />
     </main>
