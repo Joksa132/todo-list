@@ -4,21 +4,30 @@ import { signOut, useSession } from "next-auth/react";
 import Icon from '@mdi/react';
 import { mdiCalendarMonth, mdiCalendarArrowRight, mdiCalendarCheck, mdiLogout, mdiPlus, mdiListBoxOutline, mdiMenu } from '@mdi/js';
 import { useState } from "react";
-import { Task, TaskLists } from "@/types/types";
+import { TaskLists } from "@/types/types";
 
 type Props = {
   handleListClick: (listId: number, listName: string) => void,
   handleTodayClick: () => void,
   handleUpcomingClick: () => void,
   taskLists: TaskLists[],
-  setTaskLists: React.Dispatch<React.SetStateAction<TaskLists[]>>
+  setTaskLists: React.Dispatch<React.SetStateAction<TaskLists[]>>,
+  handleSearch: (value: string) => void,
 };
 
-export default function Sidebar({ handleListClick, handleTodayClick, handleUpcomingClick, taskLists, setTaskLists }: Props) {
+export default function Sidebar({
+  handleListClick,
+  handleTodayClick,
+  handleUpcomingClick,
+  taskLists,
+  setTaskLists,
+  handleSearch
+}: Props) {
   const { data: session } = useSession();
   const [isNewListClicked, setIsNewListClicked] = useState(false)
   const [newList, setNewList] = useState('')
   const [isToggled, setIsToggled] = useState(false)
+  const [searchValue, setSearchValue] = useState<string>('')
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -45,6 +54,11 @@ export default function Sidebar({ handleListClick, handleTodayClick, handleUpcom
     }
   }
 
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    handleSearch(searchValue)
+  }
+
   return (
     <nav className={isToggled ? "nav-toggled" : ""}>
       {isToggled ?
@@ -61,7 +75,9 @@ export default function Sidebar({ handleListClick, handleTodayClick, handleUpcom
                   <Icon path={mdiMenu} size={1} />
                 </span>
               </h2>
-              <input type="text" name="search-tasks" id="search-tasks" placeholder="Search"></input>
+              <form onSubmit={handleSearchSubmit}>
+                <input type="text" name="search-tasks" id="search-tasks" placeholder="Search" onChange={(e) => setSearchValue(e.target.value)} />
+              </form>
             </div>
             <div className="tasks-container">
               <h4>Tasks</h4>
