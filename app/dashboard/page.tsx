@@ -3,7 +3,6 @@
 import Sidebar from "@/components/Sidebar";
 import NewTaskForm from "@/components/NewTaskForm";
 import TaskList from "@/components/TaskList";
-import styles from "./dashboard.module.css"
 import { useState, useEffect } from "react";
 import TodayTasks from "@/components/TodayTasks";
 import UpcomingTasks from "@/components/UpcomingTasks";

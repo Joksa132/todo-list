@@ -3,9 +3,9 @@ import { mdiChevronDown, mdiChevronUp, mdiChevronRight, mdiTextBoxOutline, mdiTe
 import { Task } from '@/types/types';
 
 type Props = {
-  task: Task,
-  clickedTask: number | null,
-  setClickedTask: React.Dispatch<React.SetStateAction<number | null>>
+  task: Task;
+  clickedTask: number | null;
+  setClickedTask: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 export default function IndividualTask({ task, clickedTask, setClickedTask }: Props) {

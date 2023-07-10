@@ -7,21 +7,23 @@ import { mdiClose } from '@mdi/js';
 import { TaskLists } from "@/types/types";
 
 type Task = {
+  id: number | null;
   title: string;
   description: string;
-  list: number | null;
+  list?: number | null;
   date: string;
 }
 
 type Props = {
-  isFormOpen: boolean,
-  handleTaskForm: (isOpen: boolean) => void,
-  lists: TaskLists[]
+  isFormOpen: boolean;
+  handleTaskForm: (isOpen: boolean) => void;
+  lists: TaskLists[];
 }
 
 export default function NewTaskForm({ isFormOpen, handleTaskForm, lists }: Props) {
   const { data: session } = useSession()
   const [task, setTask] = useState<Task>({
+    id: null,
     title: '',
     description: '',
     list: null,
@@ -45,6 +47,7 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists }: Props
       const data = await res.json();
       if (data.success) {
         setTask({
+          id: null,
           title: '',
           description: '',
           date: '',
