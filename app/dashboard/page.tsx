@@ -72,7 +72,7 @@ export default function Dashboard() {
   };
 
   return (
-    <main className={styles["main-container"]}>
+    <main className="main-container">
       <Sidebar
         handleListClick={handleListClick}
         handleTodayClick={handleTodayClick}
