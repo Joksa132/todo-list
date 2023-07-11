@@ -8,9 +8,10 @@ import IndividualTask from "./Task";
 type Props = {
   searchValue: string;
   handleEdit: (task: Task) => void;
+  handleDelete: (task: Task) => void;
 }
 
-export default function Search({ searchValue, handleEdit }: Props) {
+export default function Search({ searchValue, handleEdit, handleDelete }: Props) {
   const { data: session } = useSession();
   const [tasks, setTasks] = useState<Task[]>([])
   const [clickedTask, setClickedTask] = useState<number | null>(null)
@@ -58,7 +59,14 @@ export default function Search({ searchValue, handleEdit }: Props) {
 
               <div className="list-tasks">
                 {tasks.map(task => (
-                  <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} handleEdit={handleEdit} key={task?.id} />
+                  <IndividualTask
+                    task={task}
+                    clickedTask={clickedTask}
+                    setClickedTask={setClickedTask}
+                    handleEdit={handleEdit}
+                    handleDelete={handleDelete}
+                    key={task?.id}
+                  />
                 ))}
               </div>
             </>
