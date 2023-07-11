@@ -9,15 +9,13 @@ import UpcomingTasks from "@/components/UpcomingTasks";
 import { useSession } from "next-auth/react";
 import { TaskLists } from "@/types/types";
 import Search from "@/components/Search";
+import IndividualTask from "@/components/Task";
 
-type SelectedList = {
-  id: number | null;
-  name: string;
-}
 
 export default function Dashboard() {
   const { data: session } = useSession();
-  const [selectedList, setSelectedList] = useState<SelectedList | null>(null)
+  const [clickedTask, setClickedTask] = useState<number | null>(null)
+  const [selectedList, setSelectedList] = useState<TaskLists | null>(null)
   const [activeComponent, setActiveComponent] = useState('today')
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [allLists, setAllLists] = useState<TaskLists[]>([])
@@ -46,8 +44,8 @@ export default function Dashboard() {
     }
   }, [session])
 
-  const handleListClick = (listId: number, listName: string) => {
-    setSelectedList({ id: listId, name: listName })
+  const handleListClick = (list: TaskLists) => {
+    setSelectedList(list)
     setActiveComponent('taskList')
   }
 
@@ -81,7 +79,11 @@ export default function Dashboard() {
         handleSearch={handleSearch}
       />
       {activeComponent === 'taskList' && (
-        <TaskList selectedList={selectedList} handleTaskForm={handleFormClick} />
+        <TaskList selectedList={selectedList} handleTaskForm={handleFormClick}>
+          {selectedList?.tasks.map(task => (
+            <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
+          ))}
+        </TaskList>
       )}
       {activeComponent === 'today' && (
         <TodayTasks handleTaskForm={handleFormClick} />
