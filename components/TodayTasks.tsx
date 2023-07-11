@@ -56,7 +56,7 @@ export default function TodayTasks({ handleTaskForm }: Props) {
           </button>
           <div className="list-tasks">
             {tasks.map(task => (
-              <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} />
+              <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
             ))}
           </div>
         </>
