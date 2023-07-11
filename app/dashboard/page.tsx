@@ -72,6 +72,20 @@ export default function Dashboard() {
     setEditTask(task)
   }
 
+  const handleDelete = async (task: Task) => {
+    try {
+      const res = await fetch(`/api/task/delete/${task?.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const data = await res.json()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <main className="main-container">
       <Sidebar
@@ -85,18 +99,25 @@ export default function Dashboard() {
       {activeComponent === 'taskList' && (
         <TaskList selectedList={selectedList} handleTaskForm={handleFormClick}>
           {selectedList?.tasks.map(task => (
-            <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} handleEdit={handleEdit} key={task?.id} />
+            <IndividualTask
+              task={task}
+              clickedTask={clickedTask}
+              setClickedTask={setClickedTask}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+              key={task?.id}
+            />
           ))}
         </TaskList>
       )}
       {activeComponent === 'today' && (
-        <TodayTasks handleTaskForm={handleFormClick} handleEdit={handleEdit} />
+        <TodayTasks handleTaskForm={handleFormClick} handleEdit={handleEdit} handleDelete={handleDelete} />
       )}
       {activeComponent === 'upcoming' && (
-        <UpcomingTasks handleTaskForm={handleFormClick} handleEdit={handleEdit} />
+        <UpcomingTasks handleTaskForm={handleFormClick} handleEdit={handleEdit} handleDelete={handleDelete} />
       )}
       {activeComponent === 'search' && (
-        <Search searchValue={searchValue} handleEdit={handleEdit} />
+        <Search searchValue={searchValue} handleEdit={handleEdit} handleDelete={handleDelete} />
       )}
       <NewTaskForm isFormOpen={isFormOpen} handleTaskForm={handleFormClick} lists={allLists} isEdit={editTask} />
     </main>
