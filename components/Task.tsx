@@ -1,5 +1,5 @@
 import Icon from '@mdi/react';
-import { mdiChevronDown, mdiChevronUp, mdiChevronRight, mdiTextBoxOutline, mdiTextBoxEditOutline } from '@mdi/js';
+import { mdiChevronDown, mdiChevronUp, mdiChevronRight, mdiTextBoxOutline, mdiTextBoxEditOutline, mdiTextBoxRemoveOutline } from '@mdi/js';
 import { Task } from '@/types/types';
 
 type Props = {
@@ -7,9 +7,10 @@ type Props = {
   clickedTask: number | null;
   setClickedTask: React.Dispatch<React.SetStateAction<number | null>>;
   handleEdit: (task: Task) => void;
+  handleDelete: (task: Task) => void;
 }
 
-export default function IndividualTask({ task, clickedTask, setClickedTask, handleEdit }: Props) {
+export default function IndividualTask({ task, clickedTask, setClickedTask, handleEdit, handleDelete }: Props) {
   return (
     <div className="task-container">
       <span className="task-title" onClick={() => setClickedTask(prevState => prevState === task?.id ? null : task?.id)}>
@@ -36,6 +37,10 @@ export default function IndividualTask({ task, clickedTask, setClickedTask, hand
           <button onClick={() => handleEdit(task)}>
             <Icon path={mdiTextBoxEditOutline} size={1} />
             Edit task
+          </button>
+          <button onClick={() => handleDelete(task)}>
+            <Icon path={mdiTextBoxRemoveOutline} size={1} />
+            Delete task
           </button>
         </div>
       )}
