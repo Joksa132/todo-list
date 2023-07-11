@@ -6,9 +6,10 @@ type Props = {
   task: Task;
   clickedTask: number | null;
   setClickedTask: React.Dispatch<React.SetStateAction<number | null>>;
+  handleEdit: (task: Task) => void;
 }
 
-export default function IndividualTask({ task, clickedTask, setClickedTask }: Props) {
+export default function IndividualTask({ task, clickedTask, setClickedTask, handleEdit }: Props) {
   return (
     <div className="task-container">
       <span className="task-title" onClick={() => setClickedTask(prevState => prevState === task?.id ? null : task?.id)}>
@@ -32,7 +33,7 @@ export default function IndividualTask({ task, clickedTask, setClickedTask }: Pr
               year: 'numeric'
             })}
           </span>
-          <button>
+          <button onClick={() => handleEdit(task)}>
             <Icon path={mdiTextBoxEditOutline} size={1} />
             Edit task
           </button>
