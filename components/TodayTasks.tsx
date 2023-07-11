@@ -9,9 +9,10 @@ import IndividualTask from "./Task";
 
 type Props = {
   handleTaskForm: (isOpen: boolean) => void;
+  handleEdit: (task: Task) => void;
 }
 
-export default function TodayTasks({ handleTaskForm }: Props) {
+export default function TodayTasks({ handleTaskForm, handleEdit }: Props) {
   const { data: session } = useSession();
   const [tasks, setTasks] = useState<Task[]>([])
   const [clickedTask, setClickedTask] = useState<number | null>(null)
@@ -56,7 +57,7 @@ export default function TodayTasks({ handleTaskForm }: Props) {
           </button>
           <div className="list-tasks">
             {tasks.map(task => (
-              <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
+              <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} handleEdit={handleEdit} />
             ))}
           </div>
         </>
