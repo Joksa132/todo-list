@@ -7,7 +7,7 @@ import { useState } from "react";
 import { TaskLists } from "@/types/types";
 
 type Props = {
-  handleListClick: (listId: number, listName: string) => void,
+  handleListClick: (list: TaskLists) => void,
   handleTodayClick: () => void,
   handleUpcomingClick: () => void,
   taskLists: TaskLists[],
@@ -98,7 +98,7 @@ export default function Sidebar({
               <h4>Lists</h4>
               {taskLists.map(list => (
                 <div className="individual-list" key={list?.id}>
-                  <span onClick={() => handleListClick(list?.id, list?.name)}>
+                  <span onClick={() => handleListClick(list)}>
                     <Icon path={mdiListBoxOutline} size={1} />
                     {list?.name}
                   </span>
