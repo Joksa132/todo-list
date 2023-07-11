@@ -7,10 +7,9 @@ import { useState, useEffect } from "react";
 import TodayTasks from "@/components/TodayTasks";
 import UpcomingTasks from "@/components/UpcomingTasks";
 import { useSession } from "next-auth/react";
-import { TaskLists } from "@/types/types";
+import { Task, TaskLists } from "@/types/types";
 import Search from "@/components/Search";
 import IndividualTask from "@/components/Task";
-
 
 export default function Dashboard() {
   const { data: session } = useSession();
@@ -20,6 +19,7 @@ export default function Dashboard() {
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [allLists, setAllLists] = useState<TaskLists[]>([])
   const [searchValue, setSearchValue] = useState<string>('');
+  const [editTask, setEditTask] = useState<Task | null>(null)
 
   useEffect(() => {
     async function fetchLists() {
@@ -34,7 +34,6 @@ export default function Dashboard() {
         if (data.success) {
           setAllLists(data.taskLists)
         }
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -68,6 +67,11 @@ export default function Dashboard() {
     setActiveComponent('search')
   };
 
+  const handleEdit = (task: Task) => {
+    setIsFormOpen(true)
+    setEditTask(task)
+  }
+
   return (
     <main className="main-container">
       <Sidebar
@@ -81,7 +85,7 @@ export default function Dashboard() {
       {activeComponent === 'taskList' && (
         <TaskList selectedList={selectedList} handleTaskForm={handleFormClick}>
           {selectedList?.tasks.map(task => (
-            <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
+            <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} handleEdit={handleEdit} key={task?.id} />
           ))}
         </TaskList>
       )}
@@ -94,7 +98,7 @@ export default function Dashboard() {
       {activeComponent === 'search' && (
         <Search searchValue={searchValue} />
       )}
-      <NewTaskForm isFormOpen={isFormOpen} handleTaskForm={handleFormClick} lists={allLists} />
+      <NewTaskForm isFormOpen={isFormOpen} handleTaskForm={handleFormClick} lists={allLists} isEdit={editTask} />
     </main>
   )
 }
