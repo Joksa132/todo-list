@@ -6,10 +6,11 @@ import { useEffect, useState } from "react"
 import IndividualTask from "./Task";
 
 type Props = {
-  searchValue: string
+  searchValue: string;
+  handleEdit: (task: Task) => void;
 }
 
-export default function Search({ searchValue }: Props) {
+export default function Search({ searchValue, handleEdit }: Props) {
   const { data: session } = useSession();
   const [tasks, setTasks] = useState<Task[]>([])
   const [clickedTask, setClickedTask] = useState<number | null>(null)
@@ -57,7 +58,7 @@ export default function Search({ searchValue }: Props) {
 
               <div className="list-tasks">
                 {tasks.map(task => (
-                  <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} />
+                  <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} handleEdit={handleEdit} key={task?.id} />
                 ))}
               </div>
             </>
