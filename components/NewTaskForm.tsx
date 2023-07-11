@@ -1,7 +1,7 @@
 "use client"
 
 import { useSession } from "next-auth/react";
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Icon from '@mdi/react';
 import { mdiClose } from '@mdi/js';
 import { TaskLists } from "@/types/types";
@@ -11,16 +11,17 @@ type Task = {
   title: string;
   description: string;
   list?: number | null;
-  date: string;
+  date?: string;
 }
 
 type Props = {
   isFormOpen: boolean;
   handleTaskForm: (isOpen: boolean) => void;
   lists: TaskLists[];
+  isEdit: Task | null;
 }
 
-export default function NewTaskForm({ isFormOpen, handleTaskForm, lists }: Props) {
+export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit }: Props) {
   const { data: session } = useSession()
   const [task, setTask] = useState<Task>({
     id: null,
@@ -30,11 +31,32 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists }: Props
     date: '',
   })
 
+  useEffect(() => {
+    if (isEdit) {
+      setTask({
+        id: isEdit.id,
+        title: isEdit.title || '',
+        description: isEdit.description || '',
+        list: isEdit.list || null,
+        date: isEdit.date || '',
+      });
+    } else {
+      setTask({
+        id: null,
+        title: '',
+        description: '',
+        list: null,
+        date: '',
+      });
+    }
+  }, [isEdit]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const url = isEdit ? 'http://localhost:3000/api/task/update' : 'http://localhost:3000/api/task/new';
     try {
-      const res = await fetch('http://localhost:3000/api/task/new', {
-        method: 'POST',
+      const res = await fetch(url, {
+        method: isEdit ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -43,7 +65,6 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists }: Props
           id: session?.user.id
         })
       })
-
       const data = await res.json();
       if (data.success) {
         setTask({
@@ -54,7 +75,6 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists }: Props
           list: null
         })
       }
-      console.log(data)
     } catch (error) {
       console.log(error)
     }
@@ -66,7 +86,9 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists }: Props
         <form className="new-task-form" onSubmit={handleSubmit}>
           <div className="new-task-top">
             <h2>
-              New Task:
+              {
+                isEdit ? "Edit Task:" : "New Task"
+              }
               <span onClick={() => handleTaskForm(false)}>
                 <Icon path={mdiClose} size={1} />
               </span>
