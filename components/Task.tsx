@@ -9,9 +9,8 @@ type Props = {
 }
 
 export default function IndividualTask({ task, clickedTask, setClickedTask }: Props) {
-
   return (
-    <div className="task-container" key={task?.id}>
+    <div className="task-container">
       <span className="task-title" onClick={() => setClickedTask(prevState => prevState === task?.id ? null : task?.id)}>
         <div className="task-title-left">
           <Icon path={mdiTextBoxOutline} size={1} />
@@ -35,7 +34,8 @@ export default function IndividualTask({ task, clickedTask, setClickedTask }: Pr
           </span>
           <button>
             <Icon path={mdiTextBoxEditOutline} size={1} />
-            Edit task</button>
+            Edit task
+          </button>
         </div>
       )}
     </div>
