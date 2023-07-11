@@ -10,9 +10,10 @@ import { Task } from "@/types/types";
 
 type Props = {
   handleTaskForm: (isOpen: boolean) => void;
+  handleEdit: (task: Task) => void;
 }
 
-export default function UpcomingTasks({ handleTaskForm }: Props) {
+export default function UpcomingTasks({ handleTaskForm, handleEdit }: Props) {
   const { data: session } = useSession();
   const [tasks, setTasks] = useState<Task[]>([])
   const [clickedTask, setClickedTask] = useState<number | null>(null)
@@ -95,20 +96,20 @@ export default function UpcomingTasks({ handleTaskForm }: Props) {
             <div className="list-tasks">
               <h3>Tomorrow</h3>
               {tomorrowTasks?.map(task => (
-                <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
+                <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} handleEdit={handleEdit} key={task?.id} />
               ))}
             </div>
             <div className="list-tasks-bottom">
               <div className="this-week-tasks">
                 <h3>This Week</h3>
                 {weekTasks?.map(task => (
-                  <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
+                  <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} handleEdit={handleEdit} key={task?.id} />
                 ))}
               </div>
               <div className="later-tasks">
                 <h3>Later Tasks</h3>
                 {laterTasks?.map(task => (
-                  <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} key={task?.id} />
+                  <IndividualTask task={task} clickedTask={clickedTask} setClickedTask={setClickedTask} handleEdit={handleEdit} key={task?.id} />
                 ))}
               </div>
             </div>
