@@ -90,13 +90,13 @@ export default function Dashboard() {
         </TaskList>
       )}
       {activeComponent === 'today' && (
-        <TodayTasks handleTaskForm={handleFormClick} />
+        <TodayTasks handleTaskForm={handleFormClick} handleEdit={handleEdit} />
       )}
       {activeComponent === 'upcoming' && (
-        <UpcomingTasks handleTaskForm={handleFormClick} />
+        <UpcomingTasks handleTaskForm={handleFormClick} handleEdit={handleEdit} />
       )}
       {activeComponent === 'search' && (
-        <Search searchValue={searchValue} />
+        <Search searchValue={searchValue} handleEdit={handleEdit} />
       )}
       <NewTaskForm isFormOpen={isFormOpen} handleTaskForm={handleFormClick} lists={allLists} isEdit={editTask} />
     </main>
