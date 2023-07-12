@@ -30,6 +30,7 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
     list: null,
     date: '',
   })
+  const [message, setMessage] = useState<string>('')
 
   useEffect(() => {
     if (isEdit) {
@@ -74,6 +75,7 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
           date: '',
           list: null
         })
+        isEdit ? setMessage('Task successfully edited') : setMessage('Task successfully created')
       }
     } catch (error) {
       console.log(error)
@@ -89,7 +91,11 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
               {
                 isEdit ? "Edit Task:" : "New Task"
               }
-              <span onClick={() => handleTaskForm(false)}>
+              <span onClick={() => {
+                handleTaskForm(false);
+                setMessage('');
+              }
+              }>
                 <Icon path={mdiClose} size={1} />
               </span>
             </h2>
@@ -122,6 +128,8 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
               <label>Due date:</label>
               <input type="date" onChange={(e) => setTask({ ...task, date: e.target.value })} required />
             </div>
+            {message && <span className="form-message" onClick={() => setMessage('')}>{message}</span>
+            }
           </div>
           <button>Save task</button>
         </form>
