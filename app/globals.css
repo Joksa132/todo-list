@@ -276,6 +276,15 @@ nav {
   background-color: var(--button-background);
 }
 
+.form-message {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+  background-color: rgb(19, 196, 19);
+  color: white;
+}
+
 /* task list */
 
 .list-container {
