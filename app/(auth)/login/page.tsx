@@ -4,6 +4,7 @@ import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import styles from './login.module.css'
+import Image from 'next/image'
 
 export default function Login() {
   const session = useSession();
@@ -20,7 +21,7 @@ export default function Login() {
   return (
     <div className={styles["login-container"]}>
       <div className={styles["login-left-side"]}>
-        <img src="https://images.pexels.com/photos/461064/pexels-photo-461064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="person by a laptop" />
+        <Image src="/login-pic.jpg" alt='Login page picture' width={4700} height={3360} quality={100} />
       </div>
       <div className={styles["login-right-side"]}>
         <h2>Sign in</h2>
