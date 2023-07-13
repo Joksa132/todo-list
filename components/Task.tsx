@@ -28,7 +28,7 @@ export default function IndividualTask({ task, clickedTask, setClickedTask, hand
           </span>
           <span>
             <Icon path={mdiChevronRight} size={1} />
-            {new Date(task?.dueDate).toLocaleDateString('en-GB', {
+            {new Date(task?.dueDate || "").toLocaleDateString('en-GB', {
               day: 'numeric',
               month: 'long',
               year: 'numeric'
