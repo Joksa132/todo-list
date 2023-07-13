@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     data: {
       title: task.title,
       description: task.description,
-      dueDate: new Date(task.date),
+      dueDate: new Date(task.dueDate),
       taskList: {
         connect: {
           id: taskList?.id
