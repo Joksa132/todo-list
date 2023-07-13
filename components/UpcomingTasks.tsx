@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react"
 import Icon from '@mdi/react';
 import { mdiPlus } from '@mdi/js';
-import { isAfter, isTomorrow, isWithinInterval, setWeek } from "date-fns";
+import { isAfter, isTomorrow, isWithinInterval } from "date-fns";
 import IndividualTask from "./Task";
 import { Task } from "@/types/types";
 
@@ -43,9 +43,13 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
     }
   }, [session])
 
+  const getDate = (date: string | undefined) => {
+    return date ? new Date(date) : new Date(2023, 0, 0);
+  }
+
   function getTomorrowTasks(tasks: Task[]) {
     const tomorrowTasks = tasks.filter(task => {
-      const dueDate = new Date(task.dueDate);
+      const dueDate = getDate(task?.dueDate);
       return isTomorrow(dueDate)
     });
     return tomorrowTasks
@@ -58,7 +62,7 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
     nextWeek.setDate(nextWeek.getDate() + 7);
 
     const weekTasks = tasks.filter(task => {
-      const dueDate = new Date(task.dueDate);
+      const dueDate = getDate(task?.dueDate);
       return isWithinInterval(dueDate, { start: tomorrow, end: nextWeek });
     });
     return weekTasks
@@ -69,7 +73,7 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
     nextWeek.setDate(nextWeek.getDate() + 7);
 
     const laterTasks = tasks.filter(task => {
-      const dueDate = new Date(task.dueDate);
+      const dueDate = getDate(task?.dueDate);
       return isAfter(dueDate, nextWeek)
     })
     return laterTasks
