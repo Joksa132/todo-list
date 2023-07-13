@@ -1,13 +1,13 @@
 "use client"
 
 import Sidebar from "@/components/Sidebar";
-import NewTaskForm from "@/components/NewTaskForm";
+import NewTaskForm, { Task } from "@/components/NewTaskForm";
 import TaskList from "@/components/TaskList";
 import { useState, useEffect } from "react";
 import TodayTasks from "@/components/TodayTasks";
 import UpcomingTasks from "@/components/UpcomingTasks";
 import { useSession } from "next-auth/react";
-import { Task, TaskLists } from "@/types/types";
+import { TaskLists } from "@/types/types";
 import Search from "@/components/Search";
 import IndividualTask from "@/components/Task";
 
@@ -119,7 +119,7 @@ export default function Dashboard() {
       {activeComponent === 'search' && (
         <Search searchValue={searchValue} handleEdit={handleEdit} handleDelete={handleDelete} />
       )}
-      <NewTaskForm isFormOpen={isFormOpen} handleTaskForm={handleFormClick} lists={allLists} isEdit={editTask} />
+      <NewTaskForm isFormOpen={isFormOpen} handleTaskForm={handleFormClick} lists={allLists} isEdit={editTask} key={editTask?.id} />
     </main>
   )
 }
