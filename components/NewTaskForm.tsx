@@ -54,7 +54,7 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const url = isEdit ? 'http://localhost:3000/api/task/update' : 'http://localhost:3000/api/task/new';
+    const url = isEdit ? '/api/task/update' : '/api/task/new';
     try {
       const res = await fetch(url, {
         method: isEdit ? 'PUT' : 'POST',

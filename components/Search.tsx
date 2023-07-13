@@ -24,7 +24,7 @@ export default function Search({ searchValue, handleEdit, handleDelete }: Props)
           searchValue: encodeURIComponent(searchValue)
         }).toString();
 
-        const res = await fetch(`http://localhost:3000/api/search/${session?.user?.id}?${queryString}`, {
+        const res = await fetch(`/api/search/${session?.user?.id}?${queryString}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'

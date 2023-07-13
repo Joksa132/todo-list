@@ -24,7 +24,7 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchLists() {
       try {
-        const res = await fetch(`http://localhost:3000/api/list/${session?.user.id}`, {
+        const res = await fetch(`/api/list/${session?.user.id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'

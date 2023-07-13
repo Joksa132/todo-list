@@ -32,7 +32,7 @@ export default function Sidebar({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     try {
-      const res = await fetch('http://localhost:3000/api/list/new', {
+      const res = await fetch('/api/list/new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -23,7 +23,7 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
   useEffect(() => {
     async function fetchTasks() {
       try {
-        const res = await fetch(`http://localhost:3000/api/task/upcoming/${session?.user.id}`, {
+        const res = await fetch(`/api/task/upcoming/${session?.user.id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
