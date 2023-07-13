@@ -1,17 +1,18 @@
 "use client"
 
 import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Icon from '@mdi/react';
 import { mdiClose } from '@mdi/js';
 import { TaskLists } from "@/types/types";
+import { format } from "date-fns";
 
-type Task = {
+export type Task = {
   id: number | null;
   title: string;
   description: string;
   list?: number | null;
-  date?: string;
+  dueDate?: string;
 }
 
 type Props = {
@@ -24,33 +25,13 @@ type Props = {
 export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit }: Props) {
   const { data: session } = useSession()
   const [task, setTask] = useState<Task>({
-    id: null,
-    title: '',
-    description: '',
-    list: null,
-    date: '',
+    id: isEdit?.id || null,
+    title: isEdit?.title || '',
+    description: isEdit?.description || '',
+    list: isEdit?.list || null,
+    dueDate: isEdit?.dueDate || '',
   })
   const [message, setMessage] = useState<string>('')
-
-  useEffect(() => {
-    if (isEdit) {
-      setTask({
-        id: isEdit.id,
-        title: isEdit.title || '',
-        description: isEdit.description || '',
-        list: isEdit.list || null,
-        date: isEdit.date || '',
-      });
-    } else {
-      setTask({
-        id: null,
-        title: '',
-        description: '',
-        list: null,
-        date: '',
-      });
-    }
-  }, [isEdit]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -72,10 +53,14 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
           id: null,
           title: '',
           description: '',
-          date: '',
+          dueDate: '',
           list: null
         })
-        isEdit ? setMessage('Task successfully edited') : setMessage('Task successfully created')
+        if (isEdit) {
+          setMessage('Task successfully edited')
+        } else {
+          setMessage('Task successfully created')
+        }
       }
     } catch (error) {
       console.log(error)
@@ -118,7 +103,7 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
             />
             <div className="new-task-info">
               <label>List:</label>
-              <select onChange={(e) => setTask({ ...task, list: parseInt(e.target.value) })} required>
+              <select onChange={(e) => setTask({ ...task, list: parseInt(e.target.value) })} defaultValue={task?.list || ""} required>
                 {lists.map(list => (
                   <option key={list?.id} value={list?.id}>{list?.name}</option>
                 ))}
@@ -126,7 +111,7 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
             </div>
             <div className="new-task-info">
               <label>Due date:</label>
-              <input type="date" onChange={(e) => setTask({ ...task, date: e.target.value })} required />
+              <input type="date" onChange={(e) => setTask({ ...task, dueDate: e.target.value })} value={task?.dueDate ? format(new Date(task?.dueDate), 'yyyy-MM-dd') : ''} required />
             </div>
             {message && <span className="form-message" onClick={() => setMessage('')}>{message}</span>
             }
