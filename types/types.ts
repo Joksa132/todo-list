@@ -1,8 +1,9 @@
 export type Task = {
-  id: number;
+  id: number | null;
   title: string;
   description: string;
-  dueDate: Date;
+  dueDate?: string;
+  list?: number | null;
 }
 
 export type TaskLists = {
@@ -10,5 +11,5 @@ export type TaskLists = {
   name: string;
   createdAt: Date;
   authorId: number;
-  tasks: Task[]
+  tasks: Task[];
 }
