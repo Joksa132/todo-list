@@ -57,15 +57,18 @@ export default function TodayTasks({ handleTaskForm, handleEdit, handleDelete }:
             Add New Task
           </button>
           <div className="list-tasks">
-            {tasks.map(task => (
-              <IndividualTask
-                task={task}
-                clickedTask={clickedTask}
-                setClickedTask={setClickedTask}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-                key={task?.id} />
-            ))}
+            {tasks.length ?
+              tasks.map(task => (
+                <IndividualTask
+                  task={task}
+                  clickedTask={clickedTask}
+                  setClickedTask={setClickedTask}
+                  handleEdit={handleEdit}
+                  handleDelete={handleDelete}
+                  key={task?.id} />
+              )) :
+              <span className="no-task-msg">There are currently no tasks for today</span>
+            }
           </div>
         </>
       }
