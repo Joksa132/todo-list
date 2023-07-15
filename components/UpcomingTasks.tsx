@@ -100,7 +100,7 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
           <div className="upcoming-tasks">
             <div className="list-tasks">
               <h3>Tomorrow</h3>
-              {tomorrowTasks?.map(task => (
+              {tomorrowTasks.length ? tomorrowTasks?.map(task => (
                 <IndividualTask
                   task={task}
                   clickedTask={clickedTask}
@@ -109,12 +109,14 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
                   handleDelete={handleDelete}
                   key={task?.id}
                 />
-              ))}
+              )) :
+                <span className="no-task-msg">There are currently no tasks for tomorrow</span>
+              }
             </div>
             <div className="list-tasks-bottom">
               <div className="this-week-tasks">
                 <h3>This Week</h3>
-                {weekTasks?.map(task => (
+                {weekTasks.length ? weekTasks?.map(task => (
                   <IndividualTask
                     task={task}
                     clickedTask={clickedTask}
@@ -123,11 +125,13 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
                     handleDelete={handleDelete}
                     key={task?.id}
                   />
-                ))}
+                )) :
+                  <span className="no-task-msg">There are currently no tasks for this week</span>
+                }
               </div>
               <div className="later-tasks">
                 <h3>Later Tasks</h3>
-                {laterTasks?.map(task => (
+                {laterTasks.length ? laterTasks?.map(task => (
                   <IndividualTask
                     task={task}
                     clickedTask={clickedTask}
@@ -136,7 +140,9 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
                     handleDelete={handleDelete}
                     key={task?.id}
                   />
-                ))}
+                )) :
+                  <span className="no-task-msg">There are currently no tasks later than this week</span>
+                }
               </div>
             </div>
           </div>
