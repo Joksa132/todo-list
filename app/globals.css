@@ -358,7 +358,7 @@ nav {
   padding: 5px 10px 10px 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 .task-info span {
@@ -367,11 +367,16 @@ nav {
   gap: 10px;
 }
 
+.task-info-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .task-info button {
   background-color: inherit;
   cursor: pointer;
   font-size: 1rem;
-  color: rgb(91, 84, 84);
   display: flex;
   align-items: center;
   padding: 5px 5px 5px 0;
