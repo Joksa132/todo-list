@@ -89,10 +89,6 @@ export default function Sidebar({
                 <Icon path={mdiCalendarArrowRight} size={1} />
                 Upcoming
               </span>
-              <span>
-                <Icon path={mdiCalendarMonth} size={1} />
-                Calendar
-              </span>
             </div>
             <div className="lists-container">
               <h4>Lists</h4>
