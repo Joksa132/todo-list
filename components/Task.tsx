@@ -1,5 +1,5 @@
 import Icon from '@mdi/react';
-import { mdiChevronDown, mdiChevronUp, mdiChevronRight, mdiTextBoxOutline, mdiTextBoxEditOutline, mdiTextBoxRemoveOutline } from '@mdi/js';
+import { mdiChevronDown, mdiChevronUp, mdiChevronRight, mdiTextBoxOutline, mdiTextBoxEditOutline, mdiTextBoxRemoveOutline, mdiCalendarMonth } from '@mdi/js';
 import { Task } from '@/types/types';
 
 type Props = {
@@ -15,7 +15,6 @@ export default function IndividualTask({ task, clickedTask, setClickedTask, hand
     <div className="task-container">
       <span className="task-title" onClick={() => setClickedTask(prevState => prevState === task?.id ? null : task?.id)}>
         <div className="task-title-left">
-          <Icon path={mdiTextBoxOutline} size={1} />
           {task?.title}
         </div>
         <Icon path={clickedTask === task?.id ? mdiChevronUp : mdiChevronDown} size={1} />
@@ -23,11 +22,11 @@ export default function IndividualTask({ task, clickedTask, setClickedTask, hand
       {clickedTask === task?.id && (
         <div className="task-info">
           <span>
-            <Icon path={mdiChevronRight} size={1} />
+            <Icon path={mdiTextBoxOutline} size={0.8} />
             {task?.description}
           </span>
           <span>
-            <Icon path={mdiChevronRight} size={1} />
+            <Icon path={mdiCalendarMonth} size={0.8} />
             {new Date(task?.dueDate || "").toLocaleDateString('en-GB', {
               day: 'numeric',
               month: 'long',
