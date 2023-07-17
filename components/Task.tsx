@@ -33,14 +33,16 @@ export default function IndividualTask({ task, clickedTask, setClickedTask, hand
               year: 'numeric'
             })}
           </span>
-          <button onClick={() => handleEdit(task)}>
-            <Icon path={mdiTextBoxEditOutline} size={1} />
-            Edit task
-          </button>
-          <button onClick={() => handleDelete(task)}>
-            <Icon path={mdiTextBoxRemoveOutline} size={1} />
-            Delete task
-          </button>
+          <div className="task-info-actions">
+            <button onClick={() => handleEdit(task)}>
+              <Icon path={mdiTextBoxEditOutline} size={1} />
+              Edit task
+            </button>
+            <button onClick={() => handleDelete(task)}>
+              <Icon path={mdiTextBoxRemoveOutline} size={1} />
+              Delete task
+            </button>
+          </div>
         </div>
       )}
     </div>
