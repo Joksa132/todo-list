@@ -22,11 +22,11 @@ export default function IndividualTask({ task, clickedTask, setClickedTask, hand
       {clickedTask === task?.id && (
         <div className="task-info">
           <span>
-            <Icon path={mdiTextBoxOutline} size={0.8} />
+            <Icon path={mdiTextBoxOutline} size={1} />
             {task?.description}
           </span>
           <span>
-            <Icon path={mdiCalendarMonth} size={0.8} />
+            <Icon path={mdiCalendarMonth} size={1} />
             {new Date(task?.dueDate || "").toLocaleDateString('en-GB', {
               day: 'numeric',
               month: 'long',
