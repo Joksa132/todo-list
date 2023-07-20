@@ -6,6 +6,7 @@ import Icon from '@mdi/react';
 import { mdiClose } from '@mdi/js';
 import { TaskLists } from "@/types/types";
 import { format } from "date-fns";
+import { SnackbarProvider, enqueueSnackbar } from 'notistack';
 
 export type Task = {
   id: number | null;
@@ -31,7 +32,6 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
     list: isEdit?.list || null,
     dueDate: isEdit?.dueDate || '',
   })
-  const [message, setMessage] = useState<string>('')
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -57,9 +57,9 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
           list: null
         })
         if (isEdit) {
-          setMessage('Task successfully edited')
+          enqueueSnackbar('Task successfully edited')
         } else {
-          setMessage('Task successfully created')
+          enqueueSnackbar('Task successfully created')
         }
       }
     } catch (error) {
@@ -78,7 +78,6 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
               }
               <span onClick={() => {
                 handleTaskForm(false);
-                setMessage('');
               }
               }>
                 <Icon path={mdiClose} size={1} />
@@ -113,8 +112,7 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
               <label>Due date:</label>
               <input type="date" onChange={(e) => setTask({ ...task, dueDate: e.target.value })} value={task?.dueDate ? format(new Date(task?.dueDate), 'yyyy-MM-dd') : ''} required />
             </div>
-            {message && <span className="form-message" onClick={() => setMessage('')}>{message}</span>
-            }
+            <SnackbarProvider />
           </div>
           <button>Save task</button>
         </form>
