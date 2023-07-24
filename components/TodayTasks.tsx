@@ -67,7 +67,7 @@ export default function TodayTasks({ handleTaskForm, handleEdit, handleDelete }:
                   handleDelete={handleDelete}
                   key={task?.id} />
               )) :
-              <span style={{ marginTop: "20px", fontSize: "1.2rem" }}>There are currently no tasks for today</span>
+              <span style={{ marginTop: "20px", fontSize: "1.2rem", paddingLeft: "12px" }}>There are currently no tasks for today</span>
             }
           </div>
         </>
