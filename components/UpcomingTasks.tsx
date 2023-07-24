@@ -110,7 +110,7 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
                   key={task?.id}
                 />
               )) :
-                <span style={{ marginTop: "20px", fontSize: "1.2rem" }}>There are currently no tasks for tomorrow</span>
+                <span style={{ marginTop: "10px", fontSize: "1.1rem", paddingLeft: "12px" }}>No tasks for tomorrow</span>
               }
             </div>
             <div className="list-tasks-bottom">
@@ -126,7 +126,7 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
                     key={task?.id}
                   />
                 )) :
-                  <span style={{ marginTop: "20px", fontSize: "1.2rem" }}>There are currently no tasks for this week</span>
+                  <span style={{ marginTop: "10px", fontSize: "1.1rem", paddingLeft: "12px" }}>No tasks for this week not counting tomorrow</span>
                 }
               </div>
               <div className="later-tasks">
@@ -141,7 +141,7 @@ export default function UpcomingTasks({ handleTaskForm, handleEdit, handleDelete
                     key={task?.id}
                   />
                 )) :
-                  <span style={{ marginTop: "20px", fontSize: "1.2rem" }}>There are currently no tasks later than this week</span>
+                  <span style={{ marginTop: "10px", fontSize: "1.1rem", paddingLeft: "12px" }}>No tasks later than this week</span>
                 }
               </div>
             </div>
