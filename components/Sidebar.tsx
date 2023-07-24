@@ -98,7 +98,7 @@ export default function Sidebar({
                     <Icon path={mdiListBoxOutline} size={1} />
                     {list?.name}
                   </span>
-                  <span className="individual-list-count">{list.tasks.length}</span>
+                  {list?.tasks && <span className="individual-list-count">{list?.tasks.length}</span>}
                 </div>
               ))}
               <span onClick={() => { setIsNewListClicked(!isNewListClicked) }}>
