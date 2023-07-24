@@ -1,6 +1,7 @@
 import Icon from '@mdi/react';
-import { mdiChevronDown, mdiChevronUp, mdiChevronRight, mdiTextBoxOutline, mdiTextBoxEditOutline, mdiTextBoxRemoveOutline, mdiCalendarMonth } from '@mdi/js';
+import { mdiChevronDown, mdiChevronUp, mdiTextBoxOutline, mdiTextBoxEditOutline, mdiTextBoxRemoveOutline, mdiCalendarMonth } from '@mdi/js';
 import { Task } from '@/types/types';
+import { SnackbarProvider, enqueueSnackbar } from 'notistack';
 
 type Props = {
   task: Task;
@@ -38,11 +39,12 @@ export default function IndividualTask({ task, clickedTask, setClickedTask, hand
               <Icon path={mdiTextBoxEditOutline} size={1} />
               Edit task
             </button>
-            <button onClick={() => handleDelete(task)}>
+            <button onClick={() => { handleDelete(task); enqueueSnackbar("Successfully deleted the task", { variant: 'success' }) }}>
               <Icon path={mdiTextBoxRemoveOutline} size={1} />
               Delete task
             </button>
           </div>
+          <SnackbarProvider />
         </div>
       )}
     </div>
