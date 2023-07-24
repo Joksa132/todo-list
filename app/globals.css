@@ -404,6 +404,9 @@ nav {
 
 .this-week-tasks,
 .later-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   width: 100%;
 }
 
