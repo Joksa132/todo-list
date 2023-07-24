@@ -57,9 +57,9 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
           list: null
         })
         if (isEdit) {
-          enqueueSnackbar('Task successfully edited')
+          enqueueSnackbar('Task successfully edited', { variant: 'success' })
         } else {
-          enqueueSnackbar('Task successfully created')
+          enqueueSnackbar('Task successfully created', { variant: 'success' })
         }
       }
     } catch (error) {
@@ -114,7 +114,11 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
             </div>
             <SnackbarProvider />
           </div>
-          <button>Save task</button>
+          {lists.length ? <button>Save task</button>
+            : <>
+              <button disabled>Save task</button>
+            </>
+          }
         </form>
       )}
     </>
