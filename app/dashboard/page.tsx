@@ -82,6 +82,7 @@ export default function Dashboard() {
         }
       })
       const data = await res.json()
+      fetchLists()
     } catch (error) {
       console.log(error)
     }
