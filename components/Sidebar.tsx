@@ -122,7 +122,7 @@ export default function Sidebar({
           </section>
           <section className="sidebar-user-section">
             <h4>{session?.user?.name}</h4>
-            <span onClick={() => signOut({ callbackUrl: 'http://localhost:3000/login' })}>
+            <span onClick={() => signOut({ callbackUrl: '/login' })}>
               <Icon path={mdiLogout} size={1} />
               <button>Sign out</button>
             </span>
