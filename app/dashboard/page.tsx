@@ -21,23 +21,24 @@ export default function Dashboard() {
   const [searchValue, setSearchValue] = useState<string>('');
   const [editTask, setEditTask] = useState<Task | null>(null)
 
-  useEffect(() => {
-    async function fetchLists() {
-      try {
-        const res = await fetch(`/api/list/${session?.user.id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        })
-        const data = await res.json();
-        if (data.success) {
-          setAllLists(data.taskLists)
-        }
-      } catch (error) {
-        console.log(error)
+  async function fetchLists() {
+    try {
+      const res = await fetch(`/api/list/${session?.user.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      const data = await res.json();
+      if (data.success) {
+        setAllLists(data.taskLists)
       }
+    } catch (error) {
+      console.log(error)
     }
+  }
+
+  useEffect(() => {
     if (session) {
       fetchLists()
     }
@@ -119,7 +120,14 @@ export default function Dashboard() {
       {activeComponent === 'search' && (
         <Search searchValue={searchValue} handleEdit={handleEdit} handleDelete={handleDelete} />
       )}
-      <NewTaskForm isFormOpen={isFormOpen} handleTaskForm={handleFormClick} lists={allLists} isEdit={editTask} key={editTask?.id} />
+      <NewTaskForm
+        isFormOpen={isFormOpen}
+        handleTaskForm={handleFormClick}
+        lists={allLists}
+        isEdit={editTask}
+        key={editTask?.id}
+        fetchLists={fetchLists}
+      />
     </main>
   )
 }

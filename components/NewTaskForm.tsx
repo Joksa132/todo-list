@@ -21,9 +21,10 @@ type Props = {
   handleTaskForm: (isOpen: boolean) => void;
   lists: TaskLists[];
   isEdit: Task | null;
+  fetchLists: () => void;
 }
 
-export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit }: Props) {
+export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit, fetchLists }: Props) {
   const { data: session } = useSession()
   const [task, setTask] = useState<Task>({
     id: isEdit?.id || null,
@@ -61,6 +62,7 @@ export default function NewTaskForm({ isFormOpen, handleTaskForm, lists, isEdit 
         } else {
           enqueueSnackbar('Task successfully created', { variant: 'success' })
         }
+        fetchLists()
       }
     } catch (error) {
       console.log(error)
