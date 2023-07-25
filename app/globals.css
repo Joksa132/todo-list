@@ -47,7 +47,7 @@ nav {
   height: 94vh;
   margin: 20px;
   padding: 10px;
-  width: 30%;
+  width: 400px;
   background-color: var(--sidebar-background);
   border-radius: 10px;
 }
