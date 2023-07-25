@@ -163,7 +163,13 @@ nav {
 }
 
 .individual-list-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #EBEBEB;
+  width: 30px;
+  height: 25px;
+  border-radius: 6px;
 }
 
 .individual-list:hover .individual-list-count {
