@@ -19,24 +19,25 @@ export default function TodayTasks({ handleTaskForm, handleEdit, handleDelete }:
   const [clickedTask, setClickedTask] = useState<number | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
-  useEffect(() => {
-    async function fetchTasks() {
-      try {
-        const res = await fetch(`/api/task/today/${session?.user.id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        })
-        const data = await res.json();
-        if (data.success) {
-          setTasks(data.tasks)
-          setLoading(false)
-        }
-      } catch (error) {
-        console.log(error)
+  async function fetchTasks() {
+    try {
+      const res = await fetch(`/api/task/today/${session?.user.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      const data = await res.json();
+      if (data.success) {
+        setTasks(data.tasks)
+        setLoading(false)
       }
+    } catch (error) {
+      console.log(error)
     }
+  }
+
+  useEffect(() => {
     if (session) {
       fetchTasks()
     }
