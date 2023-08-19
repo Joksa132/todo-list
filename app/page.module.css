@@ -47,3 +47,55 @@
   width: 500px;
   margin-top: 20px;
 }
+
+@media (max-width: 900px) {
+  .image-container {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .main-container h2 {
+    font-size: 2rem;
+  }
+
+  .main-container p {
+    width: 400px;
+  }
+
+  .login-button {
+    width: 400px;
+  }
+}
+
+@media (max-width: 400px) {
+  .main-container h2 {
+    font-size: 2rem;
+  }
+
+  .main-container p {
+    width: 300px;
+    font-size: 14px;
+  }
+
+  .login-button {
+    width: 300px;
+  }
+}
+
+@media (max-width: 300px) {
+  .main-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .main-container p {
+    width: 250px;
+    font-size: 12px;
+  }
+
+  .login-button {
+    width: 250px;
+    font-size: 13px;
+    height: 30px;
+  }
+}
