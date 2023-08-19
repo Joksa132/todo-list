@@ -60,3 +60,23 @@
   font-size: 1rem;
   font-weight: 600;
 }
+
+@media (max-width: 700px) {
+  .login-left-side {
+    display: none;
+  }
+}
+
+@media (max-width: 370px) {
+  .login-right-side h2 {
+    font-size: 2rem;
+  }
+
+  .login-right-side button {
+    width: 250px;
+  }
+
+  .line {
+    width: 100px;
+  }
+}
