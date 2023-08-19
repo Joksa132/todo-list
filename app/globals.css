@@ -684,6 +684,12 @@ nav {
   width: 100%;
 }
 
+@media (max-width: 600px) {
+  .list-tasks-bottom {
+    flex-direction: column;
+  }
+}
+
 /* SPINNER */
 
 @keyframes spinner {
