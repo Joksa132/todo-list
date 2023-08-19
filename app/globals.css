@@ -197,6 +197,116 @@ nav {
   cursor: pointer;
 }
 
+@media (max-width: 800px) {
+  .search-bar h2 {
+    font-size: 14px;
+  }
+
+  .search-bar input {
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .search-bar input::placeholder {
+    font-size: 12px;
+  }
+
+  .sidebar-task-section h4 {
+    font-size: 14px;
+  }
+
+  .sidebar-task-section span {
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .sidebar-task-section svg {
+    height: 20px !important;
+  }
+
+  .lists-container form {
+    flex-direction: column;
+  }
+
+  .lists-container input {
+    height: 25px;
+    font-size: 12px;
+    width: 100%;
+  }
+
+  .lists-container button {
+    font-size: 12px;
+    width: 100%;
+  }
+
+  .sidebar-user-section h4 {
+    font-size: 14px;
+  }
+
+  .sidebar-user-section button {
+    font-size: 12px;
+  }
+
+  .sidebar-user-section svg {
+    height: 20px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  nav {
+    margin: 0;
+    border-radius: 0;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .search-bar h2 {
+    font-size: 2rem;
+  }
+
+  .search-bar input {
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  .search-bar input::placeholder {
+    font-size: 1rem;
+  }
+
+  .sidebar-task-section h4 {
+    font-size: 1.2rem;
+  }
+
+  .sidebar-task-section svg,
+  .sidebar-user-section svg {
+    height: 30px !important;
+  }
+
+  .sidebar-task-section span {
+    font-size: 1rem;
+    gap: 10px;
+  }
+
+  .lists-container form {
+    flex-direction: row;
+  }
+
+  .lists-container input {
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  .lists-container button {
+    font-size: 1rem;
+  }
+
+  .sidebar-user-section h4,
+  .sidebar-user-section button {
+    font-size: 1rem;
+  }
+}
+
 /* new task form */
 
 .new-task-form {
@@ -289,6 +399,79 @@ nav {
   font-size: 1.2rem;
   background-color: rgb(19, 196, 19);
   color: white;
+}
+
+@media (max-width: 800px) {
+  .new-task-top h2 {
+    font-size: 14px;
+  }
+
+  .new-task-top input {
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .new-task-top input::placeholder {
+    font-size: 12px;
+  }
+
+  .new-task-top textarea {
+    font-size: 12px;
+  }
+
+  .new-task-info {
+    font-size: 12px;
+  }
+
+  .new-task-info select {
+    font-size: 12px;
+  }
+
+  .new-task-form button {
+    height: 30px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .new-task-form {
+    margin: 0;
+    border-radius: 0;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .new-task-top h2 {
+    font-size: 2rem;
+  }
+
+  .new-task-top input {
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  .new-task-top textarea {
+    font-size: 1rem;
+  }
+
+  .new-task-top input::placeholder {
+    font-size: 1rem;
+  }
+
+  .new-task-info {
+    font-size: 1rem;
+  }
+
+  .new-task-info select {
+    font-size: 1rem;
+    height: 30px;
+  }
+
+  .main-container {
+    position: relative;
+    height: 100vh;
+  }
 }
 
 /* task list */
@@ -390,6 +573,91 @@ nav {
   border: 1px solid rgba(186, 183, 183, 0.2);
   width: 100%;
   border-radius: 5px;
+}
+
+@media (max-width: 800px) {
+  .list-title span {
+    font-size: 1rem;
+    padding: 0 8px 0 8px;
+  }
+
+  .list-title h1 {
+    font-size: 1.5rem;
+  }
+
+  .new-task-button {
+    font-size: 14px;
+    padding: 7px 4px 7px 8px;
+  }
+
+  .new-task-button svg,
+  .task-title svg,
+  .task-info svg,
+  .task-info-actions svg {
+    height: 20px !important;
+  }
+
+  .task-title {
+    font-size: 15px;
+  }
+
+  .task-info {
+    font-size: 12px;
+  }
+
+  .task-info-actions button {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .list-container {
+    margin: 40px 0 20px 14px
+  }
+
+  .list-title {
+    margin-bottom: 20px;
+  }
+
+  .list-title h1 {
+    font-size: 2rem;
+  }
+
+  .list-title span {
+    font-size: 2rem;
+    padding: 0 10px 0 10px;
+  }
+
+  .new-task-button {
+    font-size: 1rem;
+    padding: 10px 5px 10px 12px;
+    margin-bottom: 0;
+  }
+
+  .new-task-button svg,
+  .task-title svg,
+  .task-info svg,
+  .task-info-actions svg {
+    height: 25px !important;
+  }
+
+  .list-tasks {
+    gap: 5px;
+  }
+
+  .task-title {
+    font-size: 1.2rem;
+    padding: 10px 10px 5px 12px;
+  }
+
+  .task-info {
+    font-size: 0.9rem;
+    gap: 10px;
+  }
+
+  .task-info-actions button {
+    font-size: 0.9rem;
+  }
 }
 
 /* upcoming tasks */
