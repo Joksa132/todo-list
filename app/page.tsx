@@ -24,9 +24,7 @@ export default function Home() {
         <p>With only the features you need, this app is customized for individuals seeking
           a stress-free way to stay focused on their goals, projects and tasks.
         </p>
-        <Link href="/login">
-          <button>Get Started</button>
-        </Link>
+        <Link href="/login" className={styles["login-button"]}>Get Started</Link>
       </div>
     </main>
   )
