@@ -33,7 +33,10 @@
   font-size: 2.5rem;
 }
 
-.main-container button {
+.login-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: var(--button-background);
   border-radius: 5px;
   height: 40px;
