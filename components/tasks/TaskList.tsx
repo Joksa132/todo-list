@@ -31,18 +31,18 @@ export default function TaskList({
   setIsNewTask,
 }: Props) {
   const { data: session } = useSession();
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [list, setList] = useState<TaskLists | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [clickedTask, setClickedTask] = useState<number | null>(null);
 
   if (isNewTask) {
-    fetchTasks();
+    fetchList();
     setIsNewTask(false);
   }
 
-  async function fetchTasks() {
+  async function fetchList() {
     try {
-      const res = await fetch(`/api/task/${activeComponent}`, {
+      const res = await fetch(`/api/list/get/${activeComponent}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default function TaskList({
       });
       const data = await res.json();
       if (data.success) {
-        setTasks(data.tasks);
+        setList(data.taskLists);
         setLoading(false);
       }
     } catch (error) {
@@ -60,7 +60,7 @@ export default function TaskList({
 
   useEffect(() => {
     if (session) {
-      fetchTasks();
+      fetchList();
     }
   }, [session, activeComponent]);
 
@@ -73,7 +73,7 @@ export default function TaskList({
         },
       });
       const data = await res.json();
-      fetchTasks();
+      fetchList();
     } catch (error) {
       console.log(error);
     }
@@ -86,8 +86,8 @@ export default function TaskList({
       ) : (
         <>
           <div className="list-title">
-            <h1>{tasks[0]?.taskList?.name}</h1>
-            <span>{tasks?.length}</span>
+            <h1>{list?.name}</h1>
+            <span>{list && list.tasks?.length}</span>
           </div>
           <button
             className="new-task-button"
@@ -97,16 +97,17 @@ export default function TaskList({
             Add New Task
           </button>
           <div className="list-tasks">
-            {tasks.map((task) => (
-              <IndividualTask
-                task={task}
-                clickedTask={clickedTask}
-                setClickedTask={setClickedTask}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-                key={task?.id}
-              />
-            ))}
+            {list &&
+              list?.tasks.map((task) => (
+                <IndividualTask
+                  task={task}
+                  clickedTask={clickedTask}
+                  setClickedTask={setClickedTask}
+                  handleEdit={handleEdit}
+                  handleDelete={handleDelete}
+                  key={task?.id}
+                />
+              ))}
           </div>
         </>
       )}
