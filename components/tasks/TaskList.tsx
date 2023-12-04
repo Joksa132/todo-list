@@ -3,9 +3,17 @@
 import Icon from "@mdi/react";
 import { mdiPlus } from "@mdi/js";
 import { useEffect, useState } from "react";
-import { Task } from "@/types/types";
 import { useSession } from "next-auth/react";
 import IndividualTask from "./Task";
+import { TaskLists } from "@/types/types";
+
+type Task = {
+  id: number | null;
+  title: string;
+  description: string;
+  dueDate?: string;
+  taskList?: TaskLists;
+};
 
 type Props = {
   handleTaskForm: (isOpen: boolean) => void;
