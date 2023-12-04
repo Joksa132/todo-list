@@ -8,13 +8,25 @@ import IndividualTask from "./tasks/Task";
 type Props = {
   searchValue: string;
   handleEdit: (task: Task) => void;
+  isNewTask: boolean;
+  setIsNewTask: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function Search({ searchValue, handleEdit }: Props) {
+export default function Search({
+  searchValue,
+  handleEdit,
+  isNewTask,
+  setIsNewTask,
+}: Props) {
   const { data: session } = useSession();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [clickedTask, setClickedTask] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+
+  if (isNewTask) {
+    fetchTasks();
+    setIsNewTask(false);
+  }
 
   async function fetchTasks() {
     try {

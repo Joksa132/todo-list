@@ -72,7 +72,8 @@ export default function Dashboard() {
       />
       {activeComponent &&
         activeComponent !== "today" &&
-        activeComponent !== "upcoming" && (
+        activeComponent !== "upcoming" &&
+        activeComponent !== "search" && (
           <TaskList
             handleTaskForm={handleFormClick}
             activeComponent={activeComponent}
@@ -98,7 +99,12 @@ export default function Dashboard() {
         />
       )}
       {activeComponent === "search" && (
-        <Search searchValue={searchValue} handleEdit={handleEdit} />
+        <Search
+          searchValue={searchValue}
+          handleEdit={handleEdit}
+          isNewTask={isNewTask}
+          setIsNewTask={setIsNewTask}
+        />
       )}
       <NewTaskForm
         isFormOpen={isFormOpen}
