@@ -9,17 +9,17 @@ import UpcomingTasks from "@/components/tasks/UpcomingTasks";
 import { useSession } from "next-auth/react";
 import { TaskLists } from "@/types/types";
 import Search from "@/components/Search";
-import IndividualTask from "@/components/tasks/Task";
 
 export default function Dashboard() {
   const { data: session } = useSession();
-  const [clickedTask, setClickedTask] = useState<number | null>(null);
-  const [selectedList, setSelectedList] = useState<TaskLists | null>(null);
-  const [activeComponent, setActiveComponent] = useState("today");
+  const [activeComponent, setActiveComponent] = useState<string | number>(
+    "today"
+  );
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [allLists, setAllLists] = useState<TaskLists[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
   const [editTask, setEditTask] = useState<Task | null>(null);
+  const [isNewTask, setIsNewTask] = useState<boolean>(false);
 
   useEffect(() => {
     if (session) {
@@ -44,19 +44,8 @@ export default function Dashboard() {
     }
   }
 
-  const handleListClick = (list: TaskLists) => {
-    setSelectedList(list);
-    setActiveComponent("taskList");
-  };
-
-  const handleTodayClick = () => {
-    setSelectedList(null);
-    setActiveComponent("today");
-  };
-
-  const handleUpcomingClick = () => {
-    setSelectedList(null);
-    setActiveComponent("upcoming");
+  const handleSidebarClick = (option: string | number) => {
+    setActiveComponent(option);
   };
 
   const handleFormClick = (formState: boolean) => {
@@ -73,61 +62,39 @@ export default function Dashboard() {
     setEditTask(task);
   };
 
-  const handleDelete = async (task: Task) => {
-    try {
-      const res = await fetch(`/api/task/delete/${task?.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-
-      if (selectedList) {
-        const newTasks = selectedList?.tasks.filter((listTask) => {
-          return listTask.id !== task.id;
-        });
-        setSelectedList({ ...selectedList, tasks: newTasks });
-      }
-      fetchLists();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  console.log(selectedList);
-
   return (
     <main className="main-container">
       <Sidebar
-        handleListClick={handleListClick}
-        handleTodayClick={handleTodayClick}
-        handleUpcomingClick={handleUpcomingClick}
+        handleSidebarClick={handleSidebarClick}
         taskLists={allLists}
         setTaskLists={setAllLists}
         handleSearch={handleSearch}
       />
-      {activeComponent === "taskList" && (
-        <TaskList selectedList={selectedList} handleTaskForm={handleFormClick}>
-          {selectedList?.tasks.map((task) => (
-            <IndividualTask
-              task={task}
-              clickedTask={clickedTask}
-              setClickedTask={setClickedTask}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-              key={task?.id}
-            />
-          ))}
-        </TaskList>
-      )}
+      {activeComponent &&
+        activeComponent !== "today" &&
+        activeComponent !== "upcoming" && (
+          <TaskList
+            handleTaskForm={handleFormClick}
+            activeComponent={activeComponent}
+            isNewTask={isNewTask}
+            setIsNewTask={setIsNewTask}
+            handleEdit={handleEdit}
+          />
+        )}
       {activeComponent === "today" && (
-        <TodayTasks handleTaskForm={handleFormClick} handleEdit={handleEdit} />
+        <TodayTasks
+          handleTaskForm={handleFormClick}
+          handleEdit={handleEdit}
+          isNewTask={isNewTask}
+          setIsNewTask={setIsNewTask}
+        />
       )}
       {activeComponent === "upcoming" && (
         <UpcomingTasks
           handleTaskForm={handleFormClick}
           handleEdit={handleEdit}
+          isNewTask={isNewTask}
+          setIsNewTask={setIsNewTask}
         />
       )}
       {activeComponent === "search" && (
@@ -139,7 +106,7 @@ export default function Dashboard() {
         lists={allLists}
         isEdit={editTask}
         key={editTask?.id}
-        fetchLists={fetchLists}
+        setIsNewTask={setIsNewTask}
       />
     </main>
   );
