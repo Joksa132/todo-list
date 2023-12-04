@@ -10,14 +10,9 @@ import IndividualTask from "./Task";
 type Props = {
   handleTaskForm: (isOpen: boolean) => void;
   handleEdit: (task: Task) => void;
-  handleDelete: (task: Task) => void;
 };
 
-export default function TodayTasks({
-  handleTaskForm,
-  handleEdit,
-  handleDelete,
-}: Props) {
+export default function TodayTasks({ handleTaskForm, handleEdit }: Props) {
   const { data: session } = useSession();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [clickedTask, setClickedTask] = useState<number | null>(null);
@@ -46,6 +41,21 @@ export default function TodayTasks({
       fetchTasks();
     }
   }, [session]);
+
+  const handleDelete = async (task: Task) => {
+    try {
+      const res = await fetch(`/api/task/delete/${task?.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      fetchTasks();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="list-container">
