@@ -4,7 +4,7 @@ export type Task = {
   description: string;
   dueDate?: string;
   list?: number | null;
-}
+};
 
 export type TaskLists = {
   id: number;
@@ -12,4 +12,4 @@ export type TaskLists = {
   createdAt: Date;
   authorId: number;
   tasks: Task[];
-}
+};
