@@ -107,6 +107,7 @@ export default function Dashboard() {
         isEdit={editTask}
         key={editTask?.id}
         setIsNewTask={setIsNewTask}
+        setEditTask={setEditTask}
       />
     </main>
   );

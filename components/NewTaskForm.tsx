@@ -21,6 +21,7 @@ type Props = {
   handleTaskForm: (isOpen: boolean) => void;
   lists: TaskLists[];
   isEdit: Task | null;
+  setEditTask: React.Dispatch<React.SetStateAction<Task | null>>;
   setIsNewTask: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -29,6 +30,7 @@ export default function NewTaskForm({
   handleTaskForm,
   lists,
   isEdit,
+  setEditTask,
   setIsNewTask,
 }: Props) {
   const { data: session } = useSession();
@@ -63,11 +65,12 @@ export default function NewTaskForm({
           dueDate: "",
           list: null,
         });
-        isEdit
-          ? enqueueSnackbar("Task successfully edited", { variant: "success" })
-          : enqueueSnackbar("Task successfully created", {
-              variant: "success",
-            });
+        if (isEdit) {
+          enqueueSnackbar("Task successfully edited", { variant: "success" });
+          setEditTask(null);
+        } else {
+          enqueueSnackbar("Task successfully created", { variant: "success" });
+        }
         setIsNewTask(true);
       }
     } catch (error) {
@@ -85,6 +88,7 @@ export default function NewTaskForm({
               <span
                 onClick={() => {
                   handleTaskForm(false);
+                  setEditTask(null);
                 }}
               >
                 <Icon path={mdiClose} size={1} />
