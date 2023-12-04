@@ -10,13 +10,25 @@ import IndividualTask from "./Task";
 type Props = {
   handleTaskForm: (isOpen: boolean) => void;
   handleEdit: (task: Task) => void;
+  isNewTask: boolean;
+  setIsNewTask: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function TodayTasks({ handleTaskForm, handleEdit }: Props) {
+export default function TodayTasks({
+  handleTaskForm,
+  handleEdit,
+  isNewTask,
+  setIsNewTask,
+}: Props) {
   const { data: session } = useSession();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [clickedTask, setClickedTask] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+
+  if (isNewTask) {
+    fetchTasks();
+    setIsNewTask(false);
+  }
 
   async function fetchTasks() {
     try {
