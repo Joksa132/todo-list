@@ -10,9 +10,11 @@ import {
   mdiPlus,
   mdiListBoxOutline,
   mdiMenu,
+  mdiTextBoxRemoveOutline,
 } from "@mdi/js";
 import { useState } from "react";
 import { TaskLists } from "@/types/types";
+import { enqueueSnackbar } from "notistack";
 
 type Props = {
   handleSidebarClick: (option: string | number) => void;
@@ -53,6 +55,36 @@ export default function Sidebar({
         setNewList("");
       }
       console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteList = async (list: TaskLists) => {
+    try {
+      const confirmDelete = confirm(
+        "This will also delete all tasks in this list. Are you sure you want to delete this list?"
+      );
+      if (confirmDelete) {
+        const res = await fetch(`/api/list/delete/${list.id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          enqueueSnackbar("List successfully deleted", { variant: "success" });
+          handleSidebarClick("today");
+          setTaskLists(
+            taskLists.filter((taskList) => {
+              return taskList.id !== list.id;
+            })
+          );
+        }
+        console.log(data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -115,11 +147,25 @@ export default function Sidebar({
                     <Icon path={mdiListBoxOutline} size={1} />
                     {list?.name}
                   </span>
-                  {list?.tasks && (
-                    <span className="individual-list-count">
-                      {list?.tasks.length}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span
+                      className="remove-list-icon"
+                      onClick={() => handleDeleteList(list)}
+                    >
+                      <Icon path={mdiTextBoxRemoveOutline} size={0.8} />
                     </span>
-                  )}
+                    {list?.tasks && (
+                      <span className="individual-list-count">
+                        {list?.tasks.length}
+                      </span>
+                    )}
+                  </div>
                 </div>
               ))}
               <span
@@ -140,7 +186,7 @@ export default function Sidebar({
                     onChange={(e) => setNewList(e.target.value)}
                     value={newList}
                   />
-                  <button type="submit">Save List</button>
+                  <button type="submit">Save</button>
                 </form>
               )}
             </div>
