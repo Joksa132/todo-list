@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap");
 
 :root {
-  --body-background: #FAFAFA;
-  --button-background: #FFD43B;
-  --sidebar-background: #F4F4F4;
-  --mouseover-background: #EBEBEB;
+  --body-background: #fafafa;
+  --button-background: #ffd43b;
+  --sidebar-background: #f4f4f4;
+  --mouseover-background: #ebebeb;
 }
 
 * {
@@ -25,7 +25,7 @@ input,
 select,
 button,
 textarea {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 a {
@@ -166,14 +166,22 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   width: 30px;
   height: 25px;
   border-radius: 6px;
 }
 
 .individual-list:hover .individual-list-count {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
+}
+
+.individual-list:hover .remove-list-icon {
+  display: block !important;
+}
+
+.remove-list-icon {
+  display: none !important;
 }
 
 .sidebar-user-section {
@@ -612,7 +620,7 @@ nav {
 
 @media (max-width: 600px) {
   .list-container {
-    margin: 40px 0 20px 14px
+    margin: 40px 0 20px 14px;
   }
 
   .list-title {
